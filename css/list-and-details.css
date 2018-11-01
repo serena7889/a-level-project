@@ -1,0 +1,29 @@
+body {
+  height: 100%;
+}
+
+nav {
+  height: 8%;
+}
+
+.topContent {
+  height: 22%;
+}
+
+.mainContent {
+  height: 70%;
+  padding: 0px 0px 50px 0px;
+}
+
+.scrollable {
+  overflow-y: scroll;
+}
+
+.clickable-row:hover {
+  cursor: pointer;
+}
+
+
+.hidden {
+  display: none;
+}

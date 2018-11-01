@@ -2,7 +2,7 @@
 
 include 'config.php';
 
- ?>
+?>
 
 
 <html lang="en" dir="ltr">
@@ -10,6 +10,7 @@ include 'config.php';
     <title>Work Experience</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/list-and-details.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -22,15 +23,15 @@ include 'config.php';
       $(".companyDetailsHeaders").hide();
       $("#searchInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
-        $("#companyTable tr").filter(function() {
+        $("#tableBody tr").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
 
       // sets details when company clicked
       $(".clickable-row").on("click", function() {
-        $('#clickCompanyHint').hide();
-        $('.companyDetailsHeaders').show();
+        $('#selectHint').addClass("hidden");
+        $(".details").removeClass("hidden");
         var name = $(this).data("name");
         var about = $(this).data("about");
         var description = $(this).data("description");
@@ -47,10 +48,6 @@ include 'config.php';
 
   </head>
 
-
-
-
-
   <body>
 
     <!-- NAVBAR -->
@@ -60,7 +57,7 @@ include 'config.php';
           <a class="nav-link" href="index.php">HOME</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="work-experience-list.php">WORK EXPERIENCE</a>
+          <a class="nav-link active" href="work-experience-list.php">WORK EXPERIENCE</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="jobs-list.php">JOBS</a>
@@ -75,27 +72,31 @@ include 'config.php';
     </nav>
 
 
-    <!-- MAIN CONTENT  -->
+    <!-- CONTAINER -->
     <div class="container">
 
-      <!-- TOP DESCRIPTION -->
-      <h1>Find a company offering work experience...</h1>
+      <!-- TOP CONTENT -->
+      <div class="topContent">
 
-      <div class="row">
+        <h1>Find a work experience opportunity...</h1>
+        <h3>Start entering a company name or job title...</h3>
+        <input class="form-control" id="searchInput" type="text" placeholder="Search..">
 
-        <!-- LEFT SIDE CONTENT -->
-        <div class="col">
-          <h3>Start entering a company name...</h3>
-          <input class="form-control" id="searchInput" type="text" placeholder="Search..">
-          <br>
-          <!-- COMPANY TABLE -->
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="mainContent row">
+
+        <!-- LEFT CONTENT -->
+        <div class="leftContent scrollable col">
+
           <table class="table">
             <thead>
               <tr>
                 <th>Company</th>
               </tr>
             </thead>
-            <tbody id="companyTable">
+            <tbody id="tableBody">
             <?php
             $sql = "
             SELECT companyID, companyName, companyAbout, companyWorkExperienceDescription, companyWorkExperienceRequirements
@@ -107,13 +108,11 @@ include 'config.php';
 
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                	$id = $row['opportunityID'];
+                  $id = $row['opportunityID'];
                   echo '
                   <tr class="clickable-row" data-id="' . $row['companyID'] . '" data-name="' . $row['companyName'] . '" data-about="' . $row['companyAbout'] . '" data-description="' . $row['companyWorkExperienceDescription'] . '" data-requirements="' . $row['companyWorkExperienceRequirements'] . '">
                   <td>' . $row['companyName'] . '</td>
-                  </tr>
-                  ';
-                  // <a href='opportunity_details.php?id={$row['opportunityID']}'>Link</a>
+                  </tr>';
                 }
             } else {
                 echo "0 results";
@@ -123,31 +122,42 @@ include 'config.php';
 
             </tbody>
           </table>
-        </div>
 
+        </div> <!-- END OF LEFT CONTENT -->
 
-        <!-- RIGHT SIDE CONTENT -->
-        <div class="col">
+        <!-- RIGHT CONTENT -->
+        <div class="rightContent scrollable col">
 
-          <div id="clickCompanyHint">
-            <h3 class="font-italic align-middle">Select a company to find out about their work experience opportunities...</h3>
-          </div>
+          <h3 id="selectHint">Select a company to find out about their work experience opportunities...</h3>
 
-          <h1 id="name"></h1>
+          <!-- COMPANY DETAILS -->
+          <h1 class="hidden details" id="name"></h1>
           <br>
 
-          <h3 class="companyDetailsHeaders">About this company:</h3>
-          <p id="about"></p>
+          <h3 class="hidden details">About this company:</h3>
+          <p class="hidden details" id="about"></p>
 
-          <h3 class="companyDetailsHeaders">Work experience description:</h3>
-          <p id="description"></p>
+          <h3 class="hidden details">Work experience description:</h3>
+          <p class="hidden details" id="description"></p>
 
-          <h3 class="companyDetailsHeaders">Work experience requirements:</h3>
-          <p id="requirements"></p>
-        </div>
+          <h3 class="hidden details">Work experience requirements:</h3>
+          <p class="hidden details" id="requirements"></p>
 
-      </div>
-    </div>
+          <!-- CHANGE FORM ACTION -->
+          <form class="hidden details" action="conversations.php" method="post">
+            <input id="interested" type="submit" name="interestedInput" value="I'm interested...">
+          </form>
+
+
+        </div> <!-- END OF RIGHT CONTENT -->
+
+      </div> <!-- END OF MAIN CONTENT -->
+
+    </div> <!-- END OF CONTAINER -->
 
   </body>
+
+
+
+
 </html>
