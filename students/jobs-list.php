@@ -1,5 +1,6 @@
 <?php
-include 'config.php';
+include '../includes/config.php';
+include '../includes/login-checks/student-login-check.php';
 ?>
 
 
@@ -8,7 +9,7 @@ include 'config.php';
     <title>Jobs</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/list-and-details.css">
+    <link rel="stylesheet" type="text/css" href="../css/list-and-details.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Dosis|Hind|KoHo|Krub|Montserrat|Muli|PT+Sans" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -122,14 +123,14 @@ include 'config.php';
             $result = $con->query($sql);
 
             if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                  $id = $row['opportunityID'];
-                  echo '
+                while ($row = $result->fetch_assoc()) {
+                    $id = $row['opportunityID'];
+                    echo '
                   <tr class="clickable-row" data-id="' . $row['jobID'] . '" data-company="' . $row['companyName'] . '" data-title="' . $row['jobTitle'] . '" data-description="' . $row['jobDescription'] .
                   '" data-requirements="' . $row['jobRequirements'] . '" data-wages="' . $row['jobWages'] . '" data-location="' . $row['jobLocation'] . '" data-timings="' . $row['jobTimings'] . '">
                   <td><b>' . $row['jobTitle'] . '</b><br>' . $row['companyName'] . '</td>
                   </tr>';
-                  // <a href='opportunity_details.php?id={$row['opportunityID']}'>Link</a>
+                    // <a href='opportunity_details.php?id={$row['opportunityID']}'>Link</a>
                 }
             } else {
                 echo "0 results";

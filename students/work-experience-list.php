@@ -1,6 +1,6 @@
 <?php
 
-include 'config.php';
+include '../includes/config.php';
 
 ?>
 
@@ -10,7 +10,7 @@ include 'config.php';
     <title>Work Experience</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/list-and-details.css">
+    <link rel="stylesheet" type="text/css" href="../css/list-and-details.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -68,6 +68,9 @@ include 'config.php';
         <li class="nav-item">
           <a class="nav-link" href="profile.php">PROFILE</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../includes/logout.php">LOGOUT</a>
+        </li>
       </ul>
     </nav>
 
@@ -107,9 +110,9 @@ include 'config.php';
             $result = $con->query($sql);
 
             if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                  $id = $row['opportunityID'];
-                  echo '
+                while ($row = $result->fetch_assoc()) {
+                    $id = $row['opportunityID'];
+                    echo '
                   <tr class="clickable-row" data-id="' . $row['companyID'] . '" data-name="' . $row['companyName'] . '" data-about="' . $row['companyAbout'] . '" data-description="' . $row['companyWorkExperienceDescription'] . '" data-requirements="' . $row['companyWorkExperienceRequirements'] . '">
                   <td>' . $row['companyName'] . '</td>
                   </tr>';
