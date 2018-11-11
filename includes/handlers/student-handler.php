@@ -3,7 +3,6 @@
 // FUNCTIONS
 function getIDFromEmail($con, $email)
 {
-    echo '***' . $email . '***';
     $sql_query = "SELECT studentID FROM students WHERE studentEmailAddress = '$email'";
     $result = mysqli_query($con, $sql_query);
 
@@ -36,6 +35,12 @@ function sanitizePassword($passwordText)
 }
 
 
+function sanitizeDateOfBirth($dob)
+{
+    return date("Y-m-d", strtotime($dob));
+}
+
+
 // LOGIN BUTTON PRESSED
 if (isset($_POST['loginButton'])) {
     $email = $_POST['loginEmail'];
@@ -59,13 +64,13 @@ if (isset($_POST['registerButton'])) {
     $email2 = sanitizeString($_POST['registerEmail2']);
     $password1 = sanitizePassword($_POST['registerPassword1']);
     $password2 = sanitizePassword($_POST['registerPassword2']);
-    $dob = $_POST['dateOfBirth'];
+    $dob = sanitizeDateOfBirth($_POST['dateOfBirth']);
 
     $wasSuccesful = $account->register($firstName, $lastName, $email1, $email2, $password1, $password2, $dob);
     if ($wasSuccesful) {
         $_SESSION['studentLoggedIn'] = $email1;
         $_SESSION['id'] = getIDFromEmail($con, $email1);
     } else {
-        echo 'Problem logging in';
+        echo 'Problem registering in';
     }
 }

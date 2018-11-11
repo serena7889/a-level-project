@@ -42,6 +42,17 @@ include '../includes/config.php';
         $("#requirements").text(requirements);
       });
 
+      function hideOnRowClicked() {
+        var x = document.getElementByClassName("details");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+      }
+
+
+
     });
 
     </script>
@@ -130,7 +141,6 @@ include '../includes/config.php';
 
         <!-- RIGHT CONTENT -->
         <div class="rightContent scrollable col">
-
           <h3 id="selectHint">Select a company to find out about their work experience opportunities...</h3>
 
           <!-- COMPANY DETAILS -->

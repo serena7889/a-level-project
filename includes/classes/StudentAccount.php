@@ -35,11 +35,8 @@ class Account
         // echo 'insert';
         $encryptedPw = md5($pw);
         $signUpDate = date("Y-m-d");
-        $dob = date("Y-m-d", strtotime($dob));
         $sql = "INSERT INTO students(studentFirstName, studentLastName, studentEmailAddress, studentPassword, studentDateOfBirth, studentSignUpDate) VALUES('$fn', '$ln', '$em', '$encryptedPw', '$dob', '$signUpDate')";
-        // echo '***' . $sql . '***';
         $result = mysqli_query($this->con, $sql);
-        // echo 'gets result';
         return $result;
     }
 
@@ -49,7 +46,6 @@ class Account
 
         $sql = "SELECT * FROM students WHERE studentEmailAddress = '$em' and studentPassword = '$pw'";
         $query = mysqli_query($this->con, $sql);
-        echo '*** num rows: ' . $query->num_rows . '***';
         if ($query->num_rows == 1) {
             return true;
         } else {
@@ -116,9 +112,10 @@ class Account
 
     private function validateDateOfBirth($dob)
     {
-        // if condition {
-        // array_push($this->errorArray, Constants::$dobInvalid);
+        $ymd = explode('-', $dob);
+        if ((!(checkdate($ymd[0], $ymd[1], $ymd[2]))) || $dob > time()) {
+            array_push($this->errorArray, Constants::$dobInvalid);
+        }
         return;
-        // }
     }
 }
