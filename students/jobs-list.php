@@ -9,7 +9,7 @@ include '../includes/login-checks/student-login-check.php';
     <title>Jobs</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../css/list-and-details.css">
+    <link rel="stylesheet" type="text/css" href="../includes/css/list-and-details.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Dosis|Hind|KoHo|Krub|Montserrat|Muli|PT+Sans" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -18,10 +18,7 @@ include '../includes/login-checks/student-login-check.php';
 
     <script>
 
-    // page loads
     $(document).ready(function(){
-      // $(".companyDetailsHeaders").hide();
-      // $('#interested').hide();
       $("#searchInput").on("keyup", function() {
         var value = $(this).val().toLowerCase();
         $("#tableBody tr").filter(function() {
@@ -29,7 +26,6 @@ include '../includes/login-checks/student-login-check.php';
         });
       });
 
-      // sets details when company clicked
       $(".clickable-row").on("click", function() {
         $('#selectHint').addClass("hidden");
         $(".details").removeClass("hidden");
@@ -58,10 +54,6 @@ include '../includes/login-checks/student-login-check.php';
     </script>
 
   </head>
-
-
-
-
 
   <body>
 

@@ -1,12 +1,13 @@
 <?php
 
 include '../includes/config.php';
-include '../includes/classes/StudentAccount.php';
+// include '../includes/classes/StudentAccount.php';
 include '../includes/classes/Constants.php';
 
-$account = new Account($con);
+// $account = new Account($con);
 
-include '../includes/handlers/student-handler.php';
+// include '../includes/handlers/student-handler.php';
+include '../includes/handlers/student-registration-handler.php';
 
 function getValue($name)
 {
@@ -72,7 +73,7 @@ function getValue($name)
       <form id="loginForm" action="register.php" method="POST">
         <h2>Login to your account...</h2>
         <p>
-          <?php echo $account->getError(Constants::$loginFailure); ?>
+          <?php echo getError($errorArray, Constants::$loginFailure); ?>
           <label for="loginEmail">Email: </label>
           <input id="loginEmail" type="text" name="loginEmail" placeholder="e.g. bartsimpson@springfield.com" value="<?php getValue('loginEmail'); ?>" required>
         </p>
@@ -92,41 +93,41 @@ function getValue($name)
         <h2>Create an account...</h2>
         <div class="row">
           <div class="col">
-            <?php echo $account->getError(Constants::$fnWrongLength); ?>
+            <?php echo getError($errorArray, Constants::$fnWrongLength); ?>
             <label for="registerFirstName">First name: </label>
             <input id="registerFirstName" type="text" name="registerFirstName" placeholder="e.g. Bart" value="<?php getValue('registerFirstName'); ?>" required>
           </div>
           <div class="col">
-            <?php echo $account->getError(Constants::$lnWrongLength); ?>
+            <?php echo getError($errorArray, Constants::$lnWrongLength); ?>
             <label for="registerLastName">Last name: </label>
             <input id="registerLastName" type="text" name="registerLastName" placeholder="e.g. Simpson" value="<?php getValue('registerLastName'); ?>" required>
           </div>
         </div>
         <div>
-          <?php echo $account->getError(Constants::$emTaken); ?>
-          <?php echo $account->getError(Constants::$emInvalid); ?>
+          <?php echo getError($errorArray, Constants::$emTaken); ?>
+          <?php echo getError($errorArray, Constants::$emInvalid); ?>
           <label for="registerEmail1">Email: </label>
           <input id="registerEmail1" type="email" name="registerEmail1" placeholder="e.g. bart@springfield.com" value="<?php getValue('registerEmail1'); ?>" required>
         </div>
         <div>
-          <?php echo $account->getError(Constants::$emDoNotMatch); ?>
+          <?php echo getError($errorArray, Constants::$emDoNotMatch); ?>
           <label for="registerEmail2">Confirm email: </label>
           <input id="registerEmail2" type="email" name="registerEmail2" placeholder="e.g. bart@springfield.com" required>
         </div>
         <div class="row">
           <div class="col">
-            <?php echo $account->getError(Constants::$pwWrongLength); ?>
+            <?php echo getError($errorArray, Constants::$pwWrongLength); ?>
             <label for="registerPassword1">Password: </label>
             <input id="registerPassword1" type="password" name="registerPassword1" placeholder="Your password" required>
           </div>
           <div class="col">
-            <?php echo $account->getError(Constants::$pwDoNotMatch); ?>
+            <?php echo getError($errorArray, Constants::$pwDoNotMatch); ?>
             <label for="registerPassword2">Confirm password: </label>
             <input id="registerPassword2" type="password" name="registerPassword2" placeholder="Your password" required>
           </div>
         </div>
         <div>
-          <?php echo $account->getError(Constants::$dobInvalid); ?>
+          <?php echo getError($errorArray, Constants::$dobInvalid); ?>
           <label for="dateOfBirth">Enter your date of birth: </label>
           <input id="dateOfBirth" name="dateOfBirth" type="date" required>
         </div>

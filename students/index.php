@@ -11,29 +11,37 @@ require '../includes/login-checks/student-login-check.php';
 	<title>Home</title>
 </head>
 <body>
-<?php
-echo 'student home page';
- // echo $username;
-// include '../includes/headers/student_header.php';
-//
-// $sql = "SELECT studentFirstName, studentLastName FROM students WHERE studentID = '$uid'";
-// $result = $con->query($sql);
-//
-// if ($result->num_rows > 0) {
-//
-//     $row = $result->fetch_assoc();
-//     $fname = $row['studentFirstName'];
-//     $lname = $row['studentLastName'];
-//
-//     echo "<h1>Welcome, {$fname} {$lname}!</h1>";
-//
-// } else {
-//
-//     echo "Problem getting name";
-//
-// }
 
-?>
+<?php
+
+echo $_SESSION['studentLoggedIn'];
+echo $_SESSION['id'];
+
+ ?>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand bg-dark navbar-dark">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link active" href="index.php">HOME</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="work-experience-list.php">WORK EXPERIENCE</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="jobs-list.php">JOBS</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="conversations.php">CONVERSATIONS</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="profile.php">PROFILE</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="../includes/logout.php">LOGOUT</a>
+		</li>
+	</ul>
+</nav>
 
 </body>
 </html>
