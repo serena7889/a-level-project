@@ -12,6 +12,8 @@ class Constants {
   public static $fnWrongLength = "Your first name must be between 2 and 25 characters.";
   public static $lnWrongLength = "Your last name must be between 2 and 25 characters.";
   public static $dobInvalid = "This is not a valid date of birth.";
+  public static $cnWrongLength = "Your company name must be between 2 and 50 characters.";
+
 
   // Login errors
   public static $loginFailure = "Your email or password is incorrect.";

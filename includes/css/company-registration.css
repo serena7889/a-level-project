@@ -1,4 +1,4 @@
-/* turquoise: #578684;
+/* red: #A01A23;
 grey: #484242; */
 html, body {
   padding: 0;
@@ -9,7 +9,7 @@ html, body {
 
 #background {
   background-color: #000;
-  background-image: url(../img/desk-bg.jpeg);
+  background-image: url(../img/office-bg-3.jpg);
   background-position: center;
   background-size: cover;
   display: flex;
@@ -62,7 +62,7 @@ html, body {
 
 #inputContainer h2 {
   text-align: center;
-  color: #578684;
+  color: #336845;
 }
 
 #inputContainer label {
@@ -74,8 +74,8 @@ html, body {
 
 #inputContainer button {
   background-color: transparent;
-  color: #578684;
-  border: 2px solid #578684;
+  color: #336845;
+  border: 2px solid #336845;
   border-radius: 250px;
   display: block;
   font-size: 14px;
@@ -105,7 +105,7 @@ html, body {
   font-weight: bold;
   font-size: 12px;
   cursor: pointer;
-  color: #578684;
+  color: #336845;
 }
 
 #inputContainer input[type="text"],
@@ -115,14 +115,14 @@ html, body {
   display: block;
   background-color: transparent;
   border: 0;
-  border-bottom: 2px solid #578684;
+  border-bottom: 2px solid #336845;
   height: 27px;
   line-height: 27px;
   width: 100%;
 }
 
 #inputContainer .errorMessage {
-  color: #578684;
+  color: #336845;
   font-size: 14px;
   font-weight: bold;
   display: block;
