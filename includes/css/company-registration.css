@@ -7,9 +7,13 @@ html, body {
   font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
+.scrollable {
+  overflow-y: scroll;
+}
+
 #background {
   background-color: #000;
-  background-image: url(../img/office-bg-3.jpg);
+  background-image: url(../img/office-bg.jpg);
   background-position: center;
   background-size: cover;
   display: flex;
@@ -22,37 +26,10 @@ html, body {
 #inputContainer {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 20px;
+  max-height: 80vh;
+  align-content: center;
 }
 
-/* #loginContainer * {
-  color: #fff;
-  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  line-height: 1em;
-  box-sizing: border-box;
-} */
-/* #loginContainer {
-  width: 80%;
-  margin: 0 auto;
-  position: relative;
-  max-width: 1024px;
-} */
-/*Placeholder text*/
-/* ::placeholder {
-  Chrome, Firefox, Opera, Safari 10.1+
-  color: #fff;
-  opacity: 1;
-  Firefox
-}
-
-:-ms-input-placeholder {
-  Internet Explorer 10-11
-  color: #fff;
-}
-
-::-ms-input-placeholder {
-  Microsoft Edge
-  color: #fff;
-} */
 #inputContainer {
   width: 400px;
   padding: 45px;
@@ -83,11 +60,14 @@ html, body {
   letter-spacing: 1px;
   height: 41px;
   width: 100%;
+
 }
 
-/* #inputContainer button:hover {
-  cursor: pointer;
-} */
+#inputContainer .selectedButton {
+  background-color: #336845;
+  color: #fff;
+}
+
 .inline {
   display: inline;
 }
@@ -120,10 +100,21 @@ html, body {
   line-height: 27px;
   width: 100%;
 }
+textarea {
+  width: 100%;
+  height: 100px;
+  line-height: 27px;
+  border: 2px solid #336845;
+  background-color: transparent;
+}
 
 #inputContainer .errorMessage {
   color: #336845;
   font-size: 14px;
   font-weight: bold;
   display: block;
+}
+
+#yesNoBtns {
+    margin: 0;
 }

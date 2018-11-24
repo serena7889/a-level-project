@@ -9,39 +9,24 @@ require '../includes/login-checks/student-login-check.php';
 <html>
 <head>
 	<title>Home</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <link rel="stylesheet" type="text/css" href="../includes/css/list-and-details.css"> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Dosis|Hind|KoHo|Krub|Montserrat|Muli|PT+Sans" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 <?php
-
+include '../includes/headers/student-header.php';
 echo $_SESSION['studentLoggedIn'];
 echo $_SESSION['id'];
 
  ?>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand bg-dark navbar-dark">
-	<ul class="navbar-nav">
-		<li class="nav-item">
-			<a class="nav-link active" href="index.php">HOME</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="work-experience-list.php">WORK EXPERIENCE</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="jobs-list.php">JOBS</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="conversations.php">CONVERSATIONS</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="profile.php">PROFILE</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="../includes/logout.php">LOGOUT</a>
-		</li>
-	</ul>
-</nav>
 
 </body>
 </html>

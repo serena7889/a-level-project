@@ -1,7 +1,7 @@
 <?php
 
 require '../includes/config.php';
-require '../includes/login-checks/student-login-check.php';
+require '../includes/login-checks/company-login-check.php';
 
  ?>
 
@@ -19,8 +19,12 @@ require '../includes/login-checks/student-login-check.php';
     <script type="text/javascript">
 
 
-    $(document).ready(function(){
-      var getMessageInterval = null
+    $(document).ready(function() {
+      var getMessageInterval = null;
+
+      $("#stopRefreshing").on("click", function() {
+        clearInterval(getMessageInterval);
+      });
 
       // getConversations();
 
@@ -34,17 +38,21 @@ require '../includes/login-checks/student-login-check.php';
           xhttp.onreadystatechange = function() {
               if (this.readyState == 4 && this.status == 200) {
                   document.getElementById("seeMessagesDiv").innerHTML = this.responseText;
-             }
+             };
           };
           xhttp.open("POST", "get-messages.php", true);
           xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
           xhttp.send(data);
         }, 800);
 
+
+        $("#stopRefreshing").on("click", function() {
+          clearInterval(getMessageInterval);
+        });
+
         // GETS THE ID OF THE CONVERSATION AND SETS UP THE SEND BUTTON
         var conversationID = $(this).data("convo");
-        console.log(conversationID);
-        $('#sendBtn').attr('onclick', 'sendMessage('+conversationID+')')
+        $('#sendBtn').attr('onclick', 'sendMessage('+conversationID+')');
 
         // SHOWS THE MESSAGES AND THE SEND MESSAGE SECTION
         $("#sendMessageDiv").attr("hidden", false);
@@ -72,7 +80,7 @@ require '../includes/login-checks/student-login-check.php';
       xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
               document.getElementById("seeMessagesDiv").innerHTML = this.responseText;
-         }
+         };
       };
       xhttp.open("POST", "get-messages.php", true);
       xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -89,13 +97,14 @@ require '../includes/login-checks/student-login-check.php';
       xhttp.send(data);
     };
 
+
     </script>
 
 
   </head>
   <body>
 
-    <?php include '../includes/headers/student-header.php'; ?>
+    <?php include '../includes/headers/company-header.php'; ?>
 
     <div class="container">
 
@@ -108,10 +117,12 @@ require '../includes/login-checks/student-login-check.php';
         <!-- LEFT CONTENT -->
         <div class="leftContent scrollable col">
 
+          <button id="stopRefreshing" type="button" name="button">Stop Refreshing</button>
+
           <table class="table">
             <thead>
               <tr>
-                <th>Opportunity and Company</th>
+                <th>CONVERSATIONS</th>
               </tr>
             </thead>
             <tbody id="tableBody">
@@ -119,15 +130,15 @@ require '../includes/login-checks/student-login-check.php';
             <!-- DISPLAYS THE CONVERSATIONS -->
             <?php
             $sql = "
-            SELECT companyName, jobTitle, conversationID, conversationStudentID, conversationCompanyID
-            FROM jobs, companies, conversations
-            WHERE jobID = conversationJobID AND companyID = conversationCompanyID AND '" . $uid . "' = conversationStudentID
+            SELECT studentFirstName, studentLastName, jobTitle, conversationID, conversationStudentID
+            FROM jobs, students, conversations
+            WHERE jobID = conversationJobID AND studentID = conversationStudentID AND '" . $uid . "' = conversationCompanyID
             ";
             $result = $con->query($sql);
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                  echo '<tr class="clickable-row" data-convo="' . $row['conversationID'] . '"><td><b>' . $row['jobTitle'] . '</b><br>' . $row['companyName'] . '</td>';
+                  echo '<tr class="clickable-row" data-convo="' . $row['conversationID'] . '"><td><b>' . $row['jobTitle'] . '</b><br>' . $row['studentFirstName'] . ' ' . $row['studentLastName'] . '</td>';
                 }
             } else {
                 echo "0 results";

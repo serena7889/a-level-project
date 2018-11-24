@@ -1,6 +1,6 @@
 <?php
-include '../includes/config.php';
-include '../includes/login-checks/student-login-check.php';
+require '../includes/config.php';
+require '../includes/login-checks/student-login-check.php';
 ?>
 
 
@@ -30,6 +30,7 @@ include '../includes/login-checks/student-login-check.php';
         $('#selectHint').addClass("hidden");
         $(".details").removeClass("hidden");
         var id = $(this).data("id");
+        var companyID = $(this).data("cid");
         var company = $(this).data("company");
         var title = $(this).data("title");
         var description = $(this).data("description");
@@ -44,6 +45,9 @@ include '../includes/login-checks/student-login-check.php';
         $("#timings").text(timings);
         $("#wages").text(wages);
         $("#location").text(location);
+        // set interested btn link
+        $("#interestedForm").attr('action', `../includes/handlers/conversation-handler.php?isJob=true&jobID=${id}&companyID=${companyID}`);
+
       });
 
 
@@ -57,29 +61,7 @@ include '../includes/login-checks/student-login-check.php';
 
   <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand bg-dark navbar-dark">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">HOME</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="work-experience-list.php">WORK EXPERIENCE</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="jobs-list.php">JOBS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="conversations.php">CONVERSATIONS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="profile.php">PROFILE</a>
-        </li>
-      </ul>
-    </nav>
-
-
-
+<?php include '../includes/headers/student-header.php'; ?>
 
     <!-- CONTAINER -->
     <div class="container">
@@ -108,7 +90,7 @@ include '../includes/login-checks/student-login-check.php';
             <tbody id="tableBody">
             <?php
             $sql = "
-            SELECT jobID, companyName, jobTitle, jobDescription, jobRequirements, jobTimings, jobWages, jobLocation
+            SELECT jobID, companyID, companyName, jobTitle, jobDescription, jobRequirements, jobTimings, jobWages, jobLocation
             FROM jobs, companies
             WHERE companyID = jobCompanyID
             ";
@@ -117,12 +99,12 @@ include '../includes/login-checks/student-login-check.php';
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $id = $row['opportunityID'];
+                    // echo $id;
                     echo '
-                  <tr class="clickable-row" data-id="' . $row['jobID'] . '" data-company="' . $row['companyName'] . '" data-title="' . $row['jobTitle'] . '" data-description="' . $row['jobDescription'] .
+                  <tr class="clickable-row" data-id="' . $row['jobID'] . '" data-cid="' . $row['companyID'] . '" data-company="' . $row['companyName'] . '" data-title="' . $row['jobTitle'] . '" data-description="' . $row['jobDescription'] .
                   '" data-requirements="' . $row['jobRequirements'] . '" data-wages="' . $row['jobWages'] . '" data-location="' . $row['jobLocation'] . '" data-timings="' . $row['jobTimings'] . '">
                   <td><b>' . $row['jobTitle'] . '</b><br>' . $row['companyName'] . '</td>
                   </tr>';
-                    // <a href='opportunity_details.php?id={$row['opportunityID']}'>Link</a>
                 }
             } else {
                 echo "0 results";
@@ -161,8 +143,8 @@ include '../includes/login-checks/student-login-check.php';
           <p class="hidden details" id="location"></p>
 
           <!-- CHANGE FORM ACTION -->
-          <form class="hidden details" action="conversations.php" method="post">
-            <input id="interested" type="submit" name="interestedInput" value="I'm interested...">
+          <form id="interestedForm" class="hidden details" action="" method="post">
+            <input id="interestedBtn" type="submit" name="interestedInput" value="I'm interested...">
           </form>
 
 

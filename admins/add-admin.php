@@ -2,14 +2,7 @@
 
 require '../includes/config.php';
 include '../includes/constants.php';
-include '../includes/handlers/student-handler.php';
-
-function getValue($name)
-{
-    if (isset($_POST[$name])) {
-        echo $_POST[$name];
-    }
-}
+include '../includes/handlers/admin-handler.php';
 
 ?>
 
@@ -17,75 +10,28 @@ function getValue($name)
 
 <head>
   <meta charset="utf-8">
-  <title>Register or Sign In!</title>
+  <title>Add an admin user</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="../includes/css/student-registration.css">
+  <!-- <link rel="stylesheet" href="../includes/css/student-registration.css"> -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-  <script>
-    // Hides / shows forms when propmt clicked
-    $(document).ready(function() {
-    	$("#hideLogin").click(function() {
-    		$("#loginForm").hide();
-    		$("#registerForm").show();
-    	});
-    	$("#hideRegister").click(function() {
-    		$("#registerForm").hide();
-    		$("#loginForm").show();
-    	});
-    });
-
-    <?php
-    if (isset($_POST['registerButton'])) {
-        ?>
-  		$(document).ready(function() {
-  			$('#loginForm').hide();
-  			$('#registerForm').show();
-  		});
-    <?php
-    } else {
-        ?>
-  		$(document).ready(function() {
-  			$('#registerForm').hide();
-  			$('#loginForm').show();
-  		});
-    <?php
-    }
-    ?>
-
-    </script>
-
 </head>
 
 <body>
+
+  <?php
+  include '../includes/headers/admin-header.php';
+  ?>
+
   <div class="" id="background">
     <div id="inputContainer" class="col-6">
 
-      <!-- LOGIN FORM -->
-      <form id="loginForm" action="register.php" method="POST">
-        <h2>Login to your account...</h2>
-        <p>
-          <?php echo getError($errorArray, $loginFailure); ?>
-          <label for="loginEmail">Email: </label>
-          <input id="loginEmail" type="text" name="loginEmail" placeholder="e.g. bartsimpson@springfield.com" value="<?php getValue('loginEmail'); ?>" required>
-        </p>
-        <p>
-          <label for="loginPassword">Password: </label>
-          <input id="loginPassword" type="password" name="loginPassword" placeholder="Your password" required>
-        </p>
-        <button type="submit" name="loginButton">LOG IN!</button>
-        <br><br>
-        <div class="hasAccountText" href="#">
-          <span id="hideLogin">Don't have an account yet? Click here to register...</span>
-        </div>
-      </form>
-
       <!-- REGISTER FORM -->
-      <form id="registerForm" action="register.php" method="POST">
-        <h2>Create an account...</h2>
+      <form id="registerForm" action="add-admin.php" method="POST">
+        <h2>Add an admin user...</h2>
         <div class="row">
           <div class="col">
             <?php echo getError($errorArray, $fnWrongLength); ?>
@@ -121,16 +67,7 @@ function getValue($name)
             <input id="registerPassword2" type="password" name="registerPassword2" placeholder="Your password" required>
           </div>
         </div>
-        <div>
-          <?php echo getError($errorArray, $dobInvalid); ?>
-          <label for="dateOfBirth">Enter your date of birth: </label>
-          <input id="dateOfBirth" name="dateOfBirth" type="date" required>
-        </div>
-        <button type="submit" name="registerButton">SIGN UP!</button>
-        <br><br>
-        <div class="hasAccountText" href="#">
-          <span id="hideRegister">Already have an account? Click here to login...</span>
-        </div>
+        <button type="submit" name="addAdminButton">SIGN UP!</button>
       </form>
 
     </div>

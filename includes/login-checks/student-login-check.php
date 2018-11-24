@@ -1,4 +1,4 @@
-<!-- include on pages restricted to companies who are logged in -->
+<!-- include on pages restricted to students who are logged in -->
 
 <?php
 

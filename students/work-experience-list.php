@@ -62,29 +62,7 @@ include '../includes/config.php';
   <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand bg-dark navbar-dark">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">HOME</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="work-experience-list.php">WORK EXPERIENCE</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="jobs-list.php">JOBS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="conversations.php">CONVERSATIONS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="profile.php">PROFILE</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../includes/logout.php">LOGOUT</a>
-        </li>
-      </ul>
-    </nav>
-
+    <?php include '../includes/headers/student-header.php'; ?>
 
     <!-- CONTAINER -->
     <div class="container">
