@@ -5,6 +5,9 @@
         <a class="nav-link" href="index.php">HOME</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="add-job.php">JOBS</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="add-job.php">ADD A JOB</a>
       </li>
       <li class="nav-item">

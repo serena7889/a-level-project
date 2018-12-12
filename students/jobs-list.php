@@ -143,7 +143,7 @@ require '../includes/login-checks/student-login-check.php';
           <p class="hidden details" id="location"></p>
 
           <!-- CHANGE FORM ACTION -->
-          <form id="interestedForm" class="hidden details" action="" method="post">
+          <form id="interestedForm" class="hidden details" method="post">
             <input id="interestedBtn" type="submit" name="interestedInput" value="I'm interested...">
           </form>
 

@@ -1,7 +1,6 @@
 <?php
-
-include '../includes/config.php';
-
+require '../includes/config.php';
+require '../includes/login-checks/student-login-check.php';
 ?>
 
 
@@ -32,6 +31,7 @@ include '../includes/config.php';
       $(".clickable-row").on("click", function() {
         $('#selectHint').addClass("hidden");
         $(".details").removeClass("hidden");
+        var companyID = $(this).data("cid");
         var name = $(this).data("name");
         var about = $(this).data("about");
         var description = $(this).data("description");
@@ -40,6 +40,9 @@ include '../includes/config.php';
         $("#about").text(about);
         $("#description").text(description);
         $("#requirements").text(requirements);
+        $("#interestedForm").attr('action', `../includes/handlers/conversation-handler.php?isJob=false&companyID=${companyID}`);
+
+        // $("#interestedForm").attr('action', `../includes/handlers/conversation-handler.php?isJob=false&companyID=${companyID}`);
       });
 
       function hideOnRowClicked() {
@@ -102,7 +105,7 @@ include '../includes/config.php';
                 while ($row = $result->fetch_assoc()) {
                     $id = $row['opportunityID'];
                     echo '
-                  <tr class="clickable-row" data-id="' . $row['companyID'] . '" data-name="' . $row['companyName'] . '" data-about="' . $row['companyAbout'] . '" data-description="' . $row['companyWorkExperienceDescription'] . '" data-requirements="' . $row['companyWorkExperienceRequirements'] . '">
+                  <tr class="clickable-row" data-cid="' . $row['companyID'] . '" data-name="' . $row['companyName'] . '" data-about="' . $row['companyAbout'] . '" data-description="' . $row['companyWorkExperienceDescription'] . '" data-requirements="' . $row['companyWorkExperienceRequirements'] . '">
                   <td>' . $row['companyName'] . '</td>
                   </tr>';
                 }
@@ -135,8 +138,8 @@ include '../includes/config.php';
           <p class="hidden details" id="requirements"></p>
 
           <!-- CHANGE FORM ACTION -->
-          <form class="hidden details" action="conversations.php" method="post">
-            <input id="interested" type="submit" name="interestedInput" value="I'm interested...">
+          <form id="interestedForm" class="hidden details" method="post">
+            <input id="interestedBtn" type="submit" name="interestedInput" value="I'm interested...">
           </form>
 
 

@@ -164,12 +164,10 @@ if (isset($_POST['updateDetails'])) {
   $lastName = sanitizeString($_POST['lastName']);
   $email = sanitizeString($_POST['email']);
   $dob = sanitizeDate($_POST['dob']);
-  echo 'first name: ' . $firstName . '; last name: ' . $lastName . '; email: ' . $email . '; $dob: ' . $dob;
 
   $errorArray = validateFirstName($errorArray, $fnWrongLength, $firstName);
   $errorArray = validateLastName($errorArray, $lnWrongLength, $lastName);
   $errorArray = validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, $email, $email);
-  echo 'error: ' . $errorArray[0];
 
   if (empty($errorArray)) {
     $sql = "

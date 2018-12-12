@@ -1,4 +1,5 @@
 <?php
+
 require '../includes/config.php';
 require '../includes/login-checks/company-login-check.php';
 
@@ -11,18 +12,41 @@ ORDER BY messageTime ASC";
 
 $result = $con->query($sql);
 
+//
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) { //
+
       if ($row['messageSenderID'] == $uid) {
-        $sender = 'Me';
+        // message from student
         $time = $row['messageTime'];
-        $time = date("h:ia, d/m/y", strtotime($time));
+        $time = date("h:ia    |    d/m/y", strtotime($time));
+        $content = $row['messageContent'];
+
+        echo '
+        <div class="sent_message_container">
+          <div class="sent_message">
+            <p>' . $content . '</p>
+            <span class="time_date">' . $time . '</span>
+          </div>
+        </div>';
+
       } else {
-        $sender = $row['studentFirstName'] . " " . $row['studentLastName'];
+        // message from company
+        echo '
+        <div class="received_message_container">
+          <div class="received_message">
+            <p>' . $row['messageContent'] . '</p>
+            <span class="time_date">' . $time . '</span>
+          </div>
+        </div>';
       }
-      echo '<div><h5>' . $sender . '</h5><h6>' . $time . '</h6><p>' . $row['messageContent'] . '</p></div>';
     }
+
 } else {
-    echo "0 results";
+    echo '
+    <div class="no_messages_prompt">
+      <h4>No messages yet...</h4>
+    </div>
+    ';
 }
 ?>
