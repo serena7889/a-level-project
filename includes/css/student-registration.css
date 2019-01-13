@@ -4,7 +4,13 @@ html, body {
   padding: 0;
   margin: 0;
   height: 100%;
+  width: 100%;
   font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+form {
+  margin: 0;
+  overflow-y: scroll;
 }
 
 #background {
@@ -20,44 +26,15 @@ html, body {
 }
 
 #inputContainer {
+  height: 80%;
+  width: 40%;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 20px;
-}
-
-/* #loginContainer * {
-  color: #fff;
-  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  line-height: 1em;
-  box-sizing: border-box;
-} */
-/* #loginContainer {
-  width: 80%;
-  margin: 0 auto;
-  position: relative;
-  max-width: 1024px;
-} */
-/*Placeholder text*/
-/* ::placeholder {
-  Chrome, Firefox, Opera, Safari 10.1+
-  color: #fff;
-  opacity: 1;
-  Firefox
-}
-
-:-ms-input-placeholder {
-  Internet Explorer 10-11
-  color: #fff;
-}
-
-::-ms-input-placeholder {
-  Microsoft Edge
-  color: #fff;
-} */
-#inputContainer {
-  width: 400px;
+  align-content: center;
   padding: 45px;
-  /* float: left; */
-  /* border-right: 1px solid #999; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #inputContainer h2 {
@@ -68,8 +45,30 @@ html, body {
 #inputContainer label {
   color: #484242;
   font-size: 15px;
-  margin-top: 15px;
+  /* margin-top: 15px; */
   display: block;
+}
+
+#inputContainer input[type="text"],
+#inputContainer input[type="email"],
+#inputContainer input[type="password"],
+#inputContainer input[type="date"] {
+  display: block;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px solid #336845;
+  height: 27px;
+  line-height: 27px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+#inputContainer textarea {
+  width: 100%;
+  height: 100px;
+  line-height: 27px;
+  border: 2px solid #336845;
+  background-color: transparent;
 }
 
 #inputContainer button {
@@ -85,18 +84,6 @@ html, body {
   width: 100%;
 }
 
-/* #inputContainer button:hover {
-  cursor: pointer;
-} */
-.inline {
-  display: inline;
-}
-
-#registerForm,
-#loginForm {
-  display: none;
-}
-
 .hasAccountText {
   text-align: center;
 }
@@ -108,22 +95,10 @@ html, body {
   color: #578684;
 }
 
-#inputContainer input[type="text"],
-#inputContainer input[type="email"],
-#inputContainer input[type="password"],
-#inputContainer input[type="date"] {
-  display: block;
-  background-color: transparent;
-  border: 0;
-  border-bottom: 2px solid #578684;
-  height: 27px;
-  line-height: 27px;
-  width: 100%;
-}
-
 #inputContainer .errorMessage {
   color: #578684;
   font-size: 14px;
   font-weight: bold;
   display: block;
+  /* margin-top: 8px; */
 }

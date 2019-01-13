@@ -5,13 +5,16 @@
         <a class="nav-link" href="index.php">HOME</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="add-job.php">JOBS</a>
+        <a class="nav-link" href="jobs-list.php">JOBS</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="add-job.php">ADD A JOB</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="conversations.php">CONVERSATIONS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="applications.php">APPLICATIONS</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="profile.php">PROFILE</a>

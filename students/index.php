@@ -11,7 +11,6 @@ require '../includes/login-checks/student-login-check.php';
 	<title>Home</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- <link rel="stylesheet" type="text/css" href="../includes/css/list-and-details.css"> -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Dosis|Hind|KoHo|Krub|Montserrat|Muli|PT+Sans" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -22,10 +21,8 @@ require '../includes/login-checks/student-login-check.php';
 
 <?php
 include '../includes/headers/student-header.php';
-echo $_SESSION['studentLoggedIn'];
-echo $_SESSION['id'];
-
- ?>
+echo 'email: ' . $email . ' id: ' . $uid;
+?>
 
 
 </body>

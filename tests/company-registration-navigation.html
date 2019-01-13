@@ -1,0 +1,108 @@
+<html>
+	<head>
+
+    <!-- INCLUDE JQUERY LIBRARY -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script type="text/javascript">
+
+      $(document).ready(function() {
+
+        // Initially show login form
+        $("#registerForm").attr("hidden", true);
+        $("#loginForm").attr("hidden", false);
+
+        // When change to login pressed, show login form
+        $("#toLogin").click(function() {
+          $("#registerForm").attr("hidden", true);
+          $("#loginForm").attr("hidden", false);
+        });
+
+        // When change to register pressed, show register form page 1
+        $("#toRegister").click(function() {
+          $("#loginForm").attr("hidden", true);
+          $("#page2").attr("hidden", true);
+          $("#page1").attr("hidden", false);
+          $("#registerForm").attr("hidden", false);
+        });
+
+        // When next button pressed, show register page 2
+        $("#nextBtn").click(function() {
+          $("#page1").attr("hidden", true);
+          $("#page2").attr("hidden", false);
+        });
+
+        // When back button pressed, show register page 1
+        $("#backBtn").click(function() {
+          $("#page2").attr("hidden", true);
+          $("#page1").attr("hidden", false);
+        });
+
+				// When yes button pressed, set it to selected and
+				// show work experience fields
+				$("#yesBtn").click(function() {
+          $("#workExperienceFields").attr("hidden", false);
+					$("#noBtn").removeClass("selected");
+					$("#yesBtn").addClass("selected");
+        });
+
+				// When no button pressed, set it to selected
+				// and hide work experience fields
+				$("#noBtn").click(function() {
+          $("#workExperienceFields").attr("hidden", true);
+					$("#yesBtn").removeClass("selected");
+					$("#noBtn").addClass("selected");
+        });
+
+      });
+
+    </script>
+
+  </head>
+  <body>
+
+
+  <form id="registerForm" hidden>
+
+    	<div id="page1">
+
+    		<h1>Registration Page 1</h1>
+
+    		<button type="button" id="nextBtn">NEXT</button>
+
+    	</div>
+
+    	<div id="page2">
+
+    		<h1>Registration Page 2</h1>
+
+				<button type="button" id="yesBtn" class="selected">YES</button>
+				<button type="button" id="noBtn">NO</button>
+
+				<div id="workExperienceFields">
+					<h1>Wants to offer work experience</h1>
+				</div>
+
+    		<button type="button" id="backBtn">BACK</button>
+    		<input type="submit" value="Create Account!">
+
+    	</div>
+
+    	<span id="toLogin"> Already have an account? Click here to login.</span>
+
+  </form>
+
+
+  <form id="loginForm">
+
+    	<h1>Login</h1>
+
+    	<input type="submit" value="Log in!">
+
+    	<span id="toRegister"> Don't have an account? Click here to register.</span>
+
+  </form>
+
+
+  </body>
+
+ </html>

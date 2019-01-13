@@ -1,28 +1,30 @@
 <?php
 
-// Registration errors
+// Length errors
+$pwWrongLength = "Password must be between 6 and 20 characters.";
+$fnWrongLength = "First name must be between 2 and 25 characters.";
+$lnWrongLength = "Last name must be between 2 and 25 characters.";
+$cnWrongLength = "Company name must be between 2 and 50 characters.";
+$emWrongLength = "Email must be between 2 and 100 characters.";
+$titleWrongLength = "Title must be between 2 and 100 characters.";
+$cvWrongLength = $descWrongLength = "Must be between 50 and 1000 characters";
+$reqWrongLength = "Requirements must be between 50 and 1000 characters";
+$aboutWrongLength = "This must be between 50 and 1000 characters";
+$descWrongLength = "The work experience description must be between 50 and 1000 characters";
+$reqWrongLength = "The work experience requirements must be between 50 and 1000 characters";
+
+// Password errors
 $pwDoNotMatch = "Your passwords must match.";
-$pwNotAlphaNum = "Your password can only contain letters and numbers.";
-$pwWrongLength = "Your password must be between 6 and 20 characters.";
+$pwNotCurrent = "This is not your current password";
+
+// Email errors
 $emInvalid = "Your email is invalid.";
 $emDoNotMatch = "Your emails must match.";
 $emTaken = "This email address has already been used.";
-$fnWrongLength = "Your first name must be between 2 and 25 characters.";
-$lnWrongLength = "Your last name must be between 2 and 25 characters.";
-$dobInvalid = "This is not a valid date of birth.";
-$cnWrongLength = "Your company name must be between 2 and 50 characters.";
 
 // Login errors
 $loginFailure = "Your email or password is incorrect.";
 
-// Job errors
-$jobTitleLength = "Make sure your title is less than 100 characters.";
-$jobDescriptionLength = "Make sure your description is less than 500 characters.";
-$jobRequirementsLength = "Make sure your requirements less than 500 characters.";
-$jobWagesLength = "Make sure your wages description is less than 100 characters.";
-$jobTimingsLength = "Make sure your timings description is less than 500 characters.";
-$jobLocationLength = "Make sure your location description is less than 100 characters.";
+define("FIRST_NAME_WRONG_LENGTH", "First name must be between 2 and 25 characters.");
 
-// Update errors
-
- ?>
+?>

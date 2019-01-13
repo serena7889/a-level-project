@@ -2,19 +2,6 @@
 
 $errorArray = array();
 
-// function deleteOpportunity($con, $opportunityID) {
-//
-// 	$sql = "DELETE FROM opportunities WHERE opportunityID = '$opportunityID'";
-// 	$result = $con->query($sql);
-//
-// 	if ($result) {
-//     echo "Record deleted successfully";
-// 	} else {
-//     echo "Error deleting record: " . $con->error;
-// }
-// 	return $result;
-// }
-
 function getError($errorArray, $error){
 	if (!in_array($error, $errorArray))
 		$error = "";
@@ -36,7 +23,7 @@ function validateLongString($errorArray, $string, $error){
     return $errorArray;
 }
 
-if (isset($_POST['addJobButton'])) {
+if (isset($_POST['addJobButton']) || isset($_POST['updateJobButton']) || isset($_POST['deleteJobButton'])) {
 
   $jobTitle = $_POST['jobTitle'];
   $jobDescription = $_POST['jobDescription'];
@@ -49,21 +36,43 @@ if (isset($_POST['addJobButton'])) {
   $errorArray = validateLongString($errorArray, $jobDescription, $jobDescriptionLength);
   $errorArray = validateLongString($errorArray, $jobRequirements, $jobRequirementsLength);
   $errorArray = validateShortString($errorArray, $jobWages, $jobWagesLength);
-  $errorArray = validateLongString($errorArray, $jobTimings, $jobTimingsLength);
+  $errorArray = validateShortString($errorArray, $jobTimings, $jobTimingsLength);
   $errorArray = validateShortString($errorArray, $jobLocation, $jobLocationLength);
 
 	if (empty($errorArray)) {
-		$sql = "INSERT INTO jobs(jobCompanyID, jobTitle, jobDescription, jobRequirements, jobWages, jobTimings, jobLocation)
-    VALUES('$uid', '$jobTitle', '$jobDescription', '$jobRequirements', '$jobWages', '$jobTimings', '$jobLocation')";
-		$result = $con->query($sql);
-    if ($result) {
-      header('Location: index.php');
-    }
+
+		if (isset($_POST['addJobButton'])) {
+
+			$addJobQuery = "
+			INSERT INTO jobs(jobCompanyID, jobTitle, jobDescription, jobRequirements, jobWages, jobTimings, jobLocation)
+	    VALUES('$uid', '$jobTitle', '$jobDescription', '$jobRequirements', '$jobWages', '$jobTimings', '$jobLocation')";
+			$result = $con->query($addJobQuery);
+
+		} else if (isset($_POST['updateJobButton']) || isset($_POST['deleteJobButton'])) {
+
+			$jobID = $_POST['jobID'];
+
+			$setOldInactiveQuery = "
+			UPDATE jobs
+			SET jobActive = 'no'
+			WHERE jobID = '$jobID';
+			";
+			$result = $con->query($setOldInactiveQuery);
+
+			if (isset($_POST['updateJobButton'])) {
+				$addNewVersionQuery = "
+				INSERT INTO jobs(jobCompanyID, jobTitle, jobDescription, jobRequirements, jobWages, jobTimings, jobLocation)
+				VALUES('$uid', '$jobTitle', '$jobDescription', '$jobRequirements', '$jobWages', '$jobTimings', '$jobLocation');
+				";
+				$result = $con->query($addNewVersionQuery);
+			}
+
+		}
+
+		if ($result) {
+			header('Location: jobs-list.php');
+		}
 	}
-}
-
-if (isset($_POST['deleteJobButton'])) {
-
 }
 
 ?>
