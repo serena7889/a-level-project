@@ -103,6 +103,54 @@ if (isset($_POST['updatePassword'])) {
   }
 }
 
+// UPDATE ADMIN DETAILS
+if (isset($_POST['updateAdminDetails'])) {
+
+  $firstName = sanitizeString($_POST['firstName']);
+  $lastName = sanitizeString($_POST['lastName']);
+  $email = sanitizeStringNoSpaces($_POST['email']);
+
+  $errorArray = validateTextLength($errorArray, $fnWrongLength, $firstName, 2, 25);
+  $errorArray = validateTextLength($errorArray, $lnWrongLength, $lastName, 2, 25);
+  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $email, $table, $emailField);
+
+  if (empty($errorArray)) {
+    $updateAdminQuery = "
+    UPDATE admins
+    SET adminFirstName = '$firstName',
+    adminLastName = '$lastName',
+    adminEmailAddress = '$email'
+    WHERE adminID = '$adminID'
+    ";
+    $result = $con->query($updateAdminQuery);
+  }
+}
+
+// UPDATE ADMIN PASSWORD
+if (isset($_POST['updateAdminPassword'])) {
+
+  $oldPW = sanitizeString($_POST['oldPassword']);
+  $newPW1 = sanitizeString($_POST['newPassword1']);
+  $newPW2 = sanitizeString($_POST['newPassword2']);
+
+  $errorArray = validateCurrentPassword($con, $errorArray, $pwNotCurrent, $table, $idField, $passwordField, $adminID, $oldPW);
+
+  if (empty($errorArray)) {
+
+    $errorArray = validatePasswords($errorArray, $pwDoNotMatch, $pwWrongLength, $newPW1, $newPW2);
+
+    if (empty($errorArray)) {
+      $encryptedPw = md5($newPW1);
+      $updateAdminPasswordQuery = "
+      UPDATE admins
+      SET adminPassword = '$encryptedPw'
+      WHERE adminID = '$adminID'
+      ";
+      $result = $con->query($updateAdminPasswordQuery);
+    }
+  }
+}
+
 // UPDATE COMPANY DETAILS
 if (isset($_POST['updateCompanyDetails'])) {
   $name = sanitizeString($_POST['name']);

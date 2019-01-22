@@ -54,7 +54,7 @@ require '../includes/login-checks/admin-login-check.php';
 
   <body>
     <?php
-    include '../includes/headers/student-header.php';
+    include '../includes/headers/admin-header.php';
      ?>
      <div class="container">
        <h1>Applications</h1>

@@ -54,7 +54,7 @@ if ($result->num_rows == 1) {
 	<div class="col">
 		<!-- THE DETAILS FORM WITH THE VALUES SET FROM THE DATABASE QUERY -->
 		<form method="POST">
-			<h1>Update job details...</h1>
+			<h1>Edit job</h1>
 
 		  <div>
 		    <label for="jobTitle">Title: </label>

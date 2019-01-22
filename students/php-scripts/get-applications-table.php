@@ -125,7 +125,7 @@ if ($status == 'accepted') {
     </table>
     ';
   } else {
-    echo '<h3>No undeclined applications yet.</h3>';
+    echo '<h3>No undecided applications yet.</h3>';
   }
 
 }

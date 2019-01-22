@@ -40,7 +40,7 @@ include '../includes/handlers/admin-handler.php';
       $signUp = $row['studentSignUpDate'];
     }
     ?>
-    <h1>Edit your details</h1>
+    <h1>Edit student</h1>
 
     <div class="row">
       <div class="col">

@@ -16,7 +16,6 @@ ORDER BY conversationLatestTime DESC
 ";
 $result = $con->query($getConversationDetailsQuery);
 
-
 if ($result->num_rows > 0) {
 
   // TOP PART OF ACCEPTED TABLE
@@ -54,6 +53,4 @@ if ($result->num_rows > 0) {
   echo '<h3>No ' . $status . ' conversations yet.</h3>';
 }
 
-
-
- ?>
+?>
