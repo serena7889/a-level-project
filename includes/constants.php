@@ -12,6 +12,12 @@ $reqWrongLength = "Requirements must be between 50 and 1000 characters";
 $aboutWrongLength = "This must be between 50 and 1000 characters";
 $descWrongLength = "The work experience description must be between 50 and 1000 characters";
 $reqWrongLength = "The work experience requirements must be between 50 and 1000 characters";
+$jobTitleLength = "The title must be between 2 and 100 characters";
+$jobDescriptionLength = "The description must be between 50 and 1000 characters";
+$jobRequirementsLength = "The must be between 50 and 1000 characters";
+$jobWagesLength = "The Wages description must be between 2 and 100  characters";
+$jobTimingsLength = "The timings description must be between 2 and 100 characters";
+$jobLocationLength = "The location description must be between 2 and 100  characters";
 
 // Password errors
 $pwDoNotMatch = "Your passwords must match.";
@@ -24,7 +30,5 @@ $emTaken = "This email address has already been used.";
 
 // Login errors
 $loginFailure = "Your email or password is incorrect.";
-
-define("FIRST_NAME_WRONG_LENGTH", "First name must be between 2 and 25 characters.");
 
 ?>

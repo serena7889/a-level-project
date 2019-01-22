@@ -24,7 +24,7 @@ if ($result->num_rows == 1) {
 }
 
 echo '
-  <h1>' . $firstName . $lastName . '</h1>
+  <h1>' . $firstName . ' ' . $lastName . '</h1>
   <br>
   <h3>About the student</h3>
   <p>' . $studentCV . '</p>

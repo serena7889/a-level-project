@@ -1,3 +1,5 @@
+
+
 <?php
 if (isset($_SESSION['companyLoggedIn'])) {
     $email = $_SESSION['companyLoggedIn'];

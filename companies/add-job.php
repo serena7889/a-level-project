@@ -3,6 +3,7 @@
 require '../includes/config.php';
 require '../includes/login-checks/company-login-check.php';
 include '../includes/constants.php';
+include '../includes/handlers/handler-functions.php';
 include '../includes/handlers/job-handler.php';
 
 ?>
@@ -22,14 +23,6 @@ include '../includes/handlers/job-handler.php';
 <body>
 
 <?php
-
-function getValue($name)
-{
-    if (isset($_POST[$name])) {
-        echo $_POST[$name];
-    }
-}
-
 include '../includes/headers/company-header.php';
 ?>
 
@@ -39,43 +32,55 @@ include '../includes/headers/company-header.php';
 	<div class="col">
 		<form id="opportunityForm" action="add-job.php" method="POST">
 
-		  <div>
-				<?php echo getError($errorArray, $jobTitleLength); ?>
-		    <label for="jobTitle">Title: </label>
-		    <input id="jobTitle" type="text" name="jobTitle" placeholder="" value="<?php getValue('jobTitle'); ?>" required>
-		  </div>
+			<div class="row">
 
-		  <div>
-				<?php echo getError($errorArray, $jobDescriptionLength); ?>
-		    <label for="jobDescription">Description: </label>
-		    <input id="jobDescription" type="text" name="jobDescription" placeholder="" value="<?php getValue('jobDescription'); ?>" required>
-		  </div>
+				<div class="col">
 
-		  <div>
-				<?php echo getError($errorArray, $jobRequirementsLength); ?>
-		    <label for="jobRequirements">Requirements: </label>
-		    <input id="jobRequirements" type="text" name="jobRequirements" placeholder="" value="<?php getValue('jobRequirements'); ?>" required>
-		  </div>
+					<div>
+				    <label for="jobTitle">Title: </label>
+						<?php echo getError($errorArray, $jobTitleLength); ?>
+				    <input id="jobTitle" type="text" name="jobTitle" placeholder="" value="<?php getValue('jobTitle'); ?>" required>
+				  </div>
 
-		  <div>
-				<?php echo getError($errorArray, $jobWagesLength); ?>
-		    <label for="jobWages">Wages: </label>
-		    <input id="jobWages" type="text" name="jobWages" placeholder="" value="<?php getValue('jobWages'); ?>" required>
-		  </div>
+					<div>
+						<label for="jobDescription">Description: </label>
+						<?php echo getError($errorArray, $jobDescriptionLength); ?>
+						<textarea id="jobDescription" type="text" name="jobDescription" rows="8"><?php getValue('jobDescription'); ?></textarea>
+					</div>
 
-		  <div>
-				<?php echo getError($errorArray, $jobTimingsLength); ?>
-		    <label for="jobTimings">Timings: </label>
-		    <input id="jobTimings" type="text" name="jobTimings" placeholder="" value="<?php getValue('jobTimings'); ?>" required>
-		  </div>
+					<div>
+						<label for="jobRequirements">Requirements: </label>
+						<?php echo getError($errorArray, $jobRequirementsLength); ?>
+						<textarea id="jobRequirements" type="text" name="jobRequirements" rows="8"><?php getValue('jobRequirements'); ?></textarea>
+					</div>
 
-		  <div>
-				<?php echo getError($errorArray, $jobLocationLength); ?>
-		    <label for="jobLocation">Location: </label>
-		    <input id="jobLocation" type="text" name="jobLocation" placeholder="" value="<?php getValue('jobLocation'); ?>" required>
-		  </div>
+				</div>
 
-			<button type="submit" name="addJobButton">CREATE!</button>
+				<div class="col">
+
+					<div>
+						<label for="jobWages">Wages: </label>
+						<?php echo getError($errorArray, $jobWagesLength); ?>
+						<textarea id="jobWages" class="small" type="text" name="jobWages"><?php getValue('jobWages'); ?></textarea>
+					</div>
+
+					<div>
+						<label for="jobTimings">Timings: </label>
+						<?php echo getError($errorArray, $jobTimingsLength); ?>
+						<textarea id="jobTimings" class="small" type="text" name="jobTimings"><?php getValue('jobTimings'); ?></textarea>
+					</div>
+
+					<div>
+						<label for="jobLocation">Location: </label>
+						<?php echo getError($errorArray, $jobLocationLength); ?>
+						<textarea id="jobLocation" class="small" type="text" name="jobLocation"><?php getValue('jobLocation'); ?></textarea>
+					</div>
+
+					<button type="submit" name="addJobButton">CREATE!</button>
+
+				</div>
+
+			</div>
 
 		</form>
 

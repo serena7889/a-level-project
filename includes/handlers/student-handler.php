@@ -9,17 +9,24 @@ $passwordField = 'studentPassword';
 
 // LOGIN BUTTON PRESSED ON REGISTER PAGE
 if (isset($_POST['loginButton'])) {
-    $email = sanitizeStringNoSpaces($_POST['loginEmail']);
-    $password = sanitizeString($_POST['loginPassword']);
 
-    $encryptedPassword = md5($password);
-    $errorArray = validateLoginDetails($con, $errorArray, $loginFailure, $table, $emailField, $passwordField, $email, $encryptedPassword);
+  if (isset($_SESSION['studentLoggedIn'])) {
+      unset($_SESSION['studentLoggedIn']);
+      unset($_SESSION['id']);
+  }
 
-    if (empty($errorArray)) {
-      $_SESSION['studentLoggedIn'] = $email;
-      $_SESSION['id'] = getIDFromEmail($con, $table, $idField, $emailField, $email);
-      header('Location: index.php');
-    }
+  $email = sanitizeStringNoSpaces($_POST['loginEmail']);
+  $password = sanitizeString($_POST['loginPassword']);
+
+  $encryptedPassword = md5($password);
+  $errorArray = validateLoginDetails($con, $errorArray, $loginFailure, $table, $emailField, $passwordField, $email, $encryptedPassword);
+
+  if (empty($errorArray)) {
+    unsetSessionVars();
+    $_SESSION['studentLoggedIn'] = $email;
+    $_SESSION['id'] = getIDFromEmail($con, $table, $idField, $emailField, $email);
+    header('Location: index.php');
+  }
 }
 
 // REGISTER BUTTON PRESSED ON REGISTER PAGE
@@ -49,6 +56,7 @@ if (isset($_POST['registerButton'])) {
     VALUES('$firstName', '$lastName', '$email1', '$encryptedPw', '$dob', '$signUpDate', '$cv')
     ";
     if ($con->query($registerStudentQuery)) {
+      unsetSessionVars();
       $_SESSION['studentLoggedIn'] = $email1;
       $_SESSION['id'] = getIDFromEmail($con, $table, $idField, $emailField, $email1);
       header('Location: index.php');

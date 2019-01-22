@@ -18,7 +18,7 @@ include '../includes/handlers/student-handler.php';
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
   <script>
-    // Hides / shows forms when propmt clicked
+
     $(document).ready(function() {
 
       <?php
@@ -61,10 +61,7 @@ include '../includes/handlers/student-handler.php';
 </head>
 
 <body>
-  <?php
-  print_r($errorArray);
-  // echo "errors: " . sizeof($errorArray);
-  ?>
+
   <div id="background">
     <div id="inputContainer" class="col-6">
 
@@ -103,9 +100,6 @@ include '../includes/handlers/student-handler.php';
           <div class="row">
 
             <div class="col">
-              <?php
-              // echo getError($errorArray, $fnWrongLength); 
-              ?>
               <?php echo getError($errorArray, $fnWrongLength); ?>
               <label for="registerFirstName">First name: </label>
               <input id="registerFirstName" type="text" name="registerFirstName" placeholder="e.g. Barry" value="<?php getValue('registerFirstName'); ?>" required>

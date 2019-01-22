@@ -19,7 +19,6 @@ if ($result->num_rows == 1) {
     $title = $row['conversationTitle'];
     $firstName = $row['studentFirstName'];
     $lastName = $row['studentLastName'];
-
     echo '
     <div class="header_text">
       <h1 id="title" class="header_text" onclick="showOpportunityDetails(' . $conversationID . ')">' . $title . '</h1>
@@ -41,26 +40,22 @@ if ($result->num_rows == 1) {
         <button id="decline_btn" class="header_button" type="button" name="decline_btn" onclick="changeStatus(' . $conversationID . ', \'declined\')">DECLINE</button>
       </div>
       ';
-    };
+    } else {
+      // ONLY SHOW 'END BUTTON' IF THE CONVERSATION IS ACTIVE
+      $checkNotEnded = "
+      SELECT conversationID
+      FROM conversations
+      WHERE conversationID = '$conversationID' AND conversationActive = 'yes'
+      ";
+      $result = $con->query($checkNotEnded);
+      if ($result->num_rows > 0) {
+        echo '
+        <div class="header_buttons">
+          <button id="end_btn" type="button" name="end_btn" onclick="end(' . $conversationID . ')">END</button>
+        </div>
+        ';
+      }
 
-    // ONLY SHOW 'END BUTTON' IF THE CONVERSATION IS ACTIVE
-    $checkNotEnded = "
-    SELECT conversationID
-    FROM conversations
-    WHERE conversationID = '$conversationID' AND conversationActive = 'yes'
-    ";
-    $result = $con->query($checkNotEnded);
-    if ($result->num_rows > 0) {
-      echo '
-      <div class="header_buttons">
-        <button id="end_btn" type="button" name="end_btn" onclick="end(' . $conversationID . ')">END</button>
-      </div>
-      ';
     }
-
-} else {
-    echo '
-    failure getting header details
-    ';
-};
+}
 ?>

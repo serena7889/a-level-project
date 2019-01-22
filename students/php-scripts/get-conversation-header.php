@@ -28,7 +28,6 @@ if ($result->num_rows == 1) {
     </div>
     ';
 
-
     // ONLY SHOW 'APPLY BUTTON' IF THE STUDENT HAS NOT ALREADY APPLIED
     $checkNotAppliedQuery = "
     SELECT applicationID
@@ -56,12 +55,6 @@ if ($result->num_rows == 1) {
         <button id="end_btn" type="button" name="end_btn" onclick="end(' . $conversationID . ')">END</button>
       </div>';
     }
-
-
-} else {
-    echo '
-    failure getting header details
-    ';
 }
 
 ?>

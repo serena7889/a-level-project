@@ -3,70 +3,76 @@
 require '../includes/config.php';
 require '../includes/login-checks/admin-login-check.php';
 include '../includes/constants.php';
+include '../includes/handlers/handler-functions.php';
 include '../includes/handlers/admin-handler.php';
 
-?>
+ ?>
 
 <html lang="en" dir="ltr">
+  <head>
+    <title>EDIT DETAILS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../includes/css/forms.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  </head>
+  <body>
 
-<head>
-  <meta charset="utf-8">
-  <title>Add an admin user</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../includes/css/forms.css">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <?php
+    include '../includes/headers/admin-header.php';
+    ?>
 
-</head>
+    <h1>Add an admin user</h1>
 
-<body>
+    <form method="POST">
 
-  <?php
-  include '../includes/headers/admin-header.php';
-  ?>
-
-<h1>Add an admin user...</h1>
-
-<div class="row">
-  <div class="col-6">
-    <form action="add-admin.php" method="POST">
-      <div>
-        <label for="registerFirstName">First name: </label>
-        <?php echo getError($errorArray, $text2to25); ?>
-        <input id="registerFirstName" type="text" name="registerFirstName" placeholder="e.g. Bart" value="<?php getValue('registerFirstName'); ?>" required>
+      <div class="row">
+        <div class="col">
+          <label for="firstName">First name: </label>
+          <?php echo getError($errorArray, $fnWrongLength); ?>
+          <input id="firstName" type="text" name="firstName" placeholder="e.g. Cisco" value="<?php getValue('firstName'); ?>" required>
+        </div>
+        <div class="col">
+          <label for="lastName">Last name: </label>
+          <?php echo getError($errorArray, $lnWrongLength); ?>
+          <input id="lastName" type="text" name="lastName" placeholder="e.g. Ramone" value="<?php getValue('lastName'); ?>" required>
+        </div>
       </div>
-      <div>
-        <label for="registerLastName">Last name: </label>
-        <?php echo getError($errorArray, $text2to25); ?>
-        <input id="registerLastName" type="text" name="registerLastName" placeholder="e.g. Simpson" value="<?php getValue('registerLastName'); ?>" required>
-      </div>
-      <div>
-        <label for="registerEmail1">Email: </label>
+
+      <div class="col">
+        <label for="email1">Email: </label>
+        <?php echo getError($errorArray, $emDoNotMatch); ?>
         <?php echo getError($errorArray, $emTaken); ?>
         <?php echo getError($errorArray, $emInvalid); ?>
-        <?php echo getError($errorArray, $text2to100); ?>
-        <input id="registerEmail1" type="email" name="registerEmail1" placeholder="e.g. bart@springfield.com" value="<?php getValue('registerEmail1'); ?>" required>
+        <?php echo getError($errorArray, $emWrongLength); ?>
+        <input id="email1" type="email" name="email1" placeholder="e.g. cisco@starlabs.com" value="<?php getValue('email1'); ?>" required>
       </div>
-      <div>
-        <label for="registerEmail2">Confirm email: </label>
-        <?php echo getError($errorArray, $emDoNotMatch); ?>
-        <input id="registerEmail2" type="email" name="registerEmail2" placeholder="e.g. bart@springfield.com" required>
+
+      <div class="col">
+        <label for="email2">Confirm email: </label>
+        <input id="email2" type="email" name="email2" placeholder="e.g. cisco@starlabs.com" required>
       </div>
-      <div>
-          <label for="registerPassword1">Password: </label>
+
+      <div class="row">
+        <div class="col">
+          <label for="password1">Password: </label>
           <?php echo getError($errorArray, $pwWrongLength); ?>
-          <input id="registerPassword1" type="password" name="registerPassword1" placeholder="Your password" required>
-        </div>
-        <div>
-          <label for="registerPassword2">Confirm password: </label>
           <?php echo getError($errorArray, $pwDoNotMatch); ?>
-          <input id="registerPassword2" type="password" name="registerPassword2" placeholder="Your password" required>
+          <input id="password1" type="password" name="password1" placeholder="Your password" required>
         </div>
-      <button type="submit" name="addAdminButton">SIGN UP!</button>
+        <div class="col">
+          <label for="password2">Confirm password: </label>
+          <input id="password2" type="password" name="password2" placeholder="Your password" required>
+        </div>
+      </div>
+
+      <div class="col">
+        <button type="submit" name="addAdminButton">ADD!</button>
+      </div>
+
     </form>
-  </div>
-</div>
-</body>
+
+  </body>
 </html>

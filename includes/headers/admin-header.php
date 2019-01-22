@@ -14,19 +14,22 @@ if ($level == '1') {
           <a class="nav-link" href="add-admin.php">ADD ADMIN USER</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="company-users-list.php">COMPANIES</a>
+          <a class="nav-link" href="admins.php">ADMINS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="student-users-list.php">STUDENTS</a>
+          <a class="nav-link" href="companies.php">COMPANIES</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin-users-list.php">ADMINS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="conversations-list.php">CONVERSATIONS</a>
+          <a class="nav-link" href="students.php">STUDENTS</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="jobs-list.php">JOBS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="conversations.php">CONVERSATIONS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="applications.php">APPLICATIONS</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="profile.php">PROFILE</a>
@@ -52,13 +55,19 @@ if ($level == '1') {
         <a class="nav-link" href="index.php">HOME</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="company-users.php">COMPANIES</a>
+        <a class="nav-link" href="companies.php">COMPANIES</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="student-users.php">STUDENTS</a>
+        <a class="nav-link" href="students.php">STUDENTS</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="jobs.php">JOBS</a>
+        <a class="nav-link" href="jobs-list.php">JOBS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="conversations.php">CONVERSATIONS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="applications.php">APPLICATIONS</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="profile.php">PROFILE</a>

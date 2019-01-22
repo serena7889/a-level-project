@@ -51,12 +51,11 @@ if ($companyID == $uid) {
 
   echo '
   <div class="bottom_container">
-    <button id="edit_job_btn" class="col large_button" type="button" action="goToEditJob(' . $jobID . ')">Edit job!</button>
+    <button id="edit_job_btn" class="col large_button" type="button" onclick="goToEditJob(' . $jobID . ')">Edit job!</button>
   </div>
   ';
 
 } else {
-
 
   echo '
   <div class="bottom_container">

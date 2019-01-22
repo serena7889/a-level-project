@@ -48,7 +48,7 @@ if ($result->num_rows == 1) {
 $alreadyConversationQuery = "
   SELECT conversationID
   FROM conversations, students
-  WHERE conversationJobID = '$jobID' AND conversationStudentID = '$uid'
+  WHERE conversationJobID = '$jobID' AND conversationStudentID = '$uid' and conversationActive = 'yes'
 ";
 
 $result = $con->query($alreadyConversationQuery);

@@ -58,7 +58,6 @@ require '../includes/login-checks/admin-login-check.php';
     });
 
     function editJob(jobID) {
-      console.log('job id: '+jobID);
       window.location.replace("edit-job.php?jobID="+jobID);
     }
 

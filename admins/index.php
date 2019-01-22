@@ -16,7 +16,7 @@ require '../includes/login-checks/admin-login-check.php';
   <body>
     <?php
     include '../includes/headers/admin-header.php';
-     ?>
-
+    echo 'email: ' . $email . ' id: ' . $uid . ' level: ' . $level;
+    ?>
   </body>
 </html>

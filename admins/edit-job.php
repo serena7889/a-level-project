@@ -1,11 +1,10 @@
 <?php
-
 require '../includes/config.php';
 require '../includes/login-checks/admin-login-check.php';
 include '../includes/constants.php';
 include '../includes/handlers/handler-functions.php';
-include '../includes/handlers/job-handler.php';
-
+$jobID = $_GET['jobID'];
+include '../includes/handlers/admin-handler.php';
 ?>
 
 <html>
@@ -15,6 +14,7 @@ include '../includes/handlers/job-handler.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Dosis|Hind|KoHo|Krub|Montserrat|Muli|PT+Sans" rel="stylesheet">
+	<link rel="stylesheet" href="../includes/css/forms.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -22,22 +22,22 @@ include '../includes/handlers/job-handler.php';
 <body>
 
 <?php
-
 include '../includes/headers/admin-header.php';
 
+// GETS JOB ID FROM URL VARIABLE
 $jobID = $_GET['jobID'];
 
-$sql = "
+// GETS JOB DETAILS FROM DATABASE
+$getJobDetailsQuery = "
 SELECT companyID, companyName, jobTitle, jobDescription, jobRequirements, jobTimings, jobWages, jobLocation
 FROM jobs, companies
 WHERE companyID = jobCompanyID AND jobID = '$jobID'
 ";
+$result = $con->query($getJobDetailsQuery);
 
-$result = $con->query($sql);
-
+// THE RESULTS ARE ASSIGNED TO VARIABLES
 if ($result->num_rows == 1) {
   $row = $result->fetch_assoc();
-
   $companyID = $row['companyID'];
   $companyName = $row['companyName'];
   $jobTitle = $row['jobTitle'];
@@ -46,62 +46,63 @@ if ($result->num_rows == 1) {
   $jobTimings = $row['jobTimings'];
   $jobWages = $row['jobWages'];
   $jobLocation = $row['jobLocation'];
-
-  // if ($companyID != $uid) {
-  //   header("Location: jobs-list.php");
-  // }
-
-} else {
-  echo 'query failure';
 }
-
-
 ?>
 
-<form id="opportunityForm" action="edit-job.php" method="POST">
-	<h2>Update job details...</h2>
+<div class="row">
 
-  <div>
-		<?php echo getError($errorArray, $jobTitleLength); ?>
-    <label for="jobTitle">Title: </label>
-    <input id="jobTitle" type="text" name="jobTitle" placeholder="" value="<?php echo $jobTitle; ?>" required>
-  </div>
+	<div class="col">
+		<!-- THE DETAILS FORM WITH THE VALUES SET FROM THE DATABASE QUERY -->
+		<form method="POST">
+			<h1>Update job details...</h1>
 
-  <div>
-		<?php echo getError($errorArray, $jobDescriptionLength); ?>
-    <label for="jobDescription">Description: </label>
-    <input id="jobDescription" type="text" name="jobDescription" placeholder="" value="<?php echo $jobDescription; ?>" required>
-  </div>
+		  <div>
+		    <label for="jobTitle">Title: </label>
+				<?php echo getError($errorArray, $jobTitleLength); ?>
+		    <input id="jobTitle" type="text" name="jobTitle" placeholder="" value="<?php echo $jobTitle; ?>" required>
+		  </div>
 
-  <div>
-		<?php echo getError($errorArray, $jobRequirementsLength); ?>
-    <label for="jobRequirements">Requirements: </label>
-    <input id="jobRequirements" type="text" name="jobRequirements" placeholder="" value="<?php echo $jobRequirements; ?>" required>
-  </div>
+		  <div>
+		    <label for="jobDescription">Description: </label>
+				<?php echo getError($errorArray, $jobDescriptionLength); ?>
+		    <input id="jobDescription" type="text" name="jobDescription" placeholder="" value="<?php echo $jobDescription; ?>" required>
+		  </div>
 
-  <div>
-		<?php echo getError($errorArray, $jobWagesLength); ?>
-    <label for="jobWages">Wages: </label>
-    <input id="jobWages" type="text" name="jobWages" placeholder="" value="<?php echo $jobWages; ?>" required>
-  </div>
+		  <div>
+		    <label for="jobRequirements">Requirements: </label>
+				<?php echo getError($errorArray, $jobRequirementsLength); ?>
+		    <input id="jobRequirements" type="text" name="jobRequirements" placeholder="" value="<?php echo $jobRequirements; ?>" required>
+		  </div>
 
-  <div>
-		<?php echo getError($errorArray, $jobTimingsLength); ?>
-    <label for="jobTimings">Timings: </label>
-    <input id="jobTimings" type="text" name="jobTimings" placeholder="" value="<?php echo $jobTimings; ?>" required>
-  </div>
+		  <div>
+		    <label for="jobWages">Wages: </label>
+				<?php echo getError($errorArray, $jobWagesLength); ?>
+		    <input id="jobWages" type="text" name="jobWages" placeholder="" value="<?php echo $jobWages; ?>" required>
+		  </div>
 
-  <div>
-		<?php echo getError($errorArray, $jobLocationLength); ?>
-    <label for="jobLocation">Location: </label>
-    <input id="jobLocation" type="text" name="jobLocation" placeholder="" value="<?php echo $jobLocation; ?>" required>
-  </div>
+		  <div>
+		    <label for="jobTimings">Timings: </label>
+				<?php echo getError($errorArray, $jobTimingsLength); ?>
+		    <input id="jobTimings" type="text" name="jobTimings" placeholder="" value="<?php echo $jobTimings; ?>" required>
+		  </div>
 
-	<input type="text" name="jobID" value="<?php echo $jobID; ?>" hidden>
+		  <div>
+		    <label for="jobLocation">Location: </label>
+				<?php echo getError($errorArray, $jobLocationLength); ?>
+		    <input id="jobLocation" type="text" name="jobLocation" placeholder="" value="<?php echo $jobLocation; ?>" required>
+		  </div>
 
-	<button type="submit" name="updateJobButton">UPDATE!</button>
+			<input type="text" name="jobID" value="<?php echo $jobID; ?>" hidden>
 
-</form>
+			<button type="submit" name="updateJobButton">UPDATE!</button>
+
+			<button type="submit" name="deleteJobButton">DELETE!</button>
+
+		</form>
+
+	</div>
+
+</div>
 
 </body>
 </html>

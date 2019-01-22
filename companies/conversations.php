@@ -27,7 +27,6 @@ require '../includes/login-checks/company-login-check.php';
         },
         success: function(data, status) {
           $("#list").html(data);
-          // document.getElementById("list").innerHTML = data;
         }
       });
     };
@@ -41,7 +40,6 @@ require '../includes/login-checks/company-login-check.php';
         },
         success: function(data, status) {
           $("#right_header").html(data);
-          // document.getElementById("right_header").innerHTML = data;
         }
       });
     };
@@ -55,7 +53,6 @@ require '../includes/login-checks/company-login-check.php';
         },
         success: function(data, status) {
           $("#middle_container").html(data);
-          // document.getElementById("middle_container").innerHTML = data;
         }
       });
     };
@@ -147,11 +144,11 @@ require '../includes/login-checks/company-login-check.php';
         data: {
           conversationID: conversationID
         },
-        success: function(data, status){
+        success: function(data, status) {
           $("#modal_details").html(data);
         }
-      });
-    };
+      })
+    }
 
     $(document).ready(function() {
 
@@ -164,7 +161,7 @@ require '../includes/login-checks/company-login-check.php';
         success: function(data, status){
           document.getElementById("list").innerHTML = data;
         }
-      });
+      })
 
       // FILTERS DIVS IN LIST BY SEARCH BAR INPUT
       $("#search_bar").on("keyup click input", function () {
@@ -176,20 +173,19 @@ require '../includes/login-checks/company-login-check.php';
             }).show();
         } else {
             $(".list_item_container").show();
-        };
-      });
+        }
+      })
 
       // SET UP THE MODAL CLOSE BUTTON
       $("#close").click(function() {
         $("#modal").attr('hidden', true);
-      });
+      })
 
       // VARIABLE THAT WILL CONTAIN MESSAGE REFRESHING INTERVAL
       var getMessageInterval;
 
       // WHEN A CONVERSATION IS SELECTED
       $(".list_item_container").on("click", function() {
-        console.log('clicked');
 
         // STOPS REFRESHING MESSAGES FROM PREVIOUS CONVERSATION
         clearInterval(getMessageInterval);

@@ -76,7 +76,7 @@ if ($result->num_rows == 1) {
       echo 'query failure';
     }
     echo '
-      <h1>' . $companyName . '</h1>
+      <h1>' . $jobTitle . ' at ' . $companyName . '</h1>
       <br>
       <h3>Description</h3>
       <p>' . $jobDescription . '</p>

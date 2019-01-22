@@ -32,19 +32,27 @@ function getIDFromEmail($con, $table, $idField, $emailField, $email) {
   }
 }
 
-function getLevelFromEmail($con, $table, $levelField, $emailField, $email) {
+function getLevelFromEmail($con, $email) {
   // returns the user's level (admin)
   $getLevelQuery = "
-  SELECT $levelField
-  FROM $table
-  WHERE $emailField = '$email'
+  SELECT adminLevel
+  FROM admins
+  WHERE adminEmailAddress = '$email'
   ";
   $result = $con->query($getLevelQuery);
 
   if (($result->num_rows) > 0) {
       $row = $result->fetch_assoc();
-      return $row[$levelField];
+      return $row['adminLevel'];
   }
+}
+
+function unsetSessionVars() {
+  unset($_SESSION['studentLoggedIn']);
+  unset($_SESSION['companyLoggedIn']);
+  unset($_SESSION['adminLoggedIn']);
+  unset($_SESSION['level']);
+  unset($_SESSION['id']);
 }
 
 // SANITIZATION FUNCTIONS (return sanitized values)
@@ -90,7 +98,7 @@ function validateUnique($con, $errorArray, $emTaken, $table, $emailField, $email
   $checkUniqueQuery = "
   SELECT $emailField
   FROM $table
-  WHERE $emailField = '$email'
+  WHERE $emailField = '$email' AND $idfield != '$uid'
   ";
   $result = $con->query($checkUniqueQuery);
   if ($result->num_rows > 0) {
@@ -103,7 +111,6 @@ function validateEmailFormat($errorArray, $emInvalid, $email) {
   // adds error if email is in an invalid format
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       array_push($errorArray, $emInvalid);
-      echo "invalid";
   } return $errorArray;
 }
 
@@ -121,7 +128,7 @@ function validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongL
   // used to validate email single email
   // adds errors returned from these validation checks
   $errorArray = validateTextLength($errorArray, $emWrongLength, $email, 2, 100);
-  $errorArray = validateEmailFormat($errorArray, $email);
+  $errorArray = validateEmailFormat($errorArray, $emInvalid, $email);
   $errorArray = validateUnique($con, $errorArray, $emTaken, $table, $emailField, $email);
   return $errorArray;
 }
@@ -142,6 +149,7 @@ function validateCurrentPassword($con, $errorArray, $pwNotCurrent, $table, $idFi
   FROM $table
   WHERE $idField = '$uid' AND $passwordField = '$encryptedPw'
   ";
+  echo $checkCurrentPasswordQuery;
   $result = $con->query($checkCurrentPasswordQuery);
   if ($result->num_rows != 1) {
     array_push($errorArray, $pwNotCurrent);
@@ -149,11 +157,11 @@ function validateCurrentPassword($con, $errorArray, $pwNotCurrent, $table, $idFi
   return $errorArray;
 }
 
-function validateLoginDetails($con, $errorArray, $loginFailure, $table, $emailField, $passwordField, $email, $password) {
+function validateLoginDetails($con, $errorArray, $loginFailure, $table, $emailField, $passwordField, $email, $encryptedPassword) {
     $loginStudentQuery = "
     SELECT $emailField
     FROM $table
-    WHERE $emailField = '$email' and $passwordField = '$password'";
+    WHERE $emailField = '$email' and $passwordField = '$encryptedPassword'";
     $result = $con->query($loginStudentQuery);
     if ($result->num_rows != 1) {
       array_push($errorArray, $loginFailure);

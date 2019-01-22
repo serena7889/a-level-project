@@ -44,8 +44,8 @@ echo '
 
 $alreadyConversationQuery = "
   SELECT conversationID
-  FROM conversations, students
-  WHERE conversationCompanyID = '$companyID' AND conversationStudentID = '$uid'
+  FROM conversations
+  WHERE conversationCompanyID = '$companyID' AND conversationStudentID = '$uid' AND conversationJobID = 'null' AND conversationActive = 'yes' 
 ";
 
 $result = $con->query($alreadyConversationQuery);

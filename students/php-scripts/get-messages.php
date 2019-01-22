@@ -13,9 +13,9 @@ ORDER BY messageTime ASC";
 
 $result = $con->query($getMessageQuery);
 
-//
+
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) { //
+    while ($row = $result->fetch_assoc()) { 
 
       $time = $row['messageTime'];
       $time = date("h:ia    |    d/m/y", strtotime($time));

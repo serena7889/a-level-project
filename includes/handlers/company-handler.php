@@ -16,10 +16,9 @@ if (isset($_POST['loginButton'])) {
     $errorArray = validateLoginDetails($con, $errorArray, $loginFailure, $table, $emailField, $passwordField, $email, $encryptedPassword);
 
     if (empty($errorArray)) {
+      unsetSessionVars();
       $_SESSION['companyLoggedIn'] = $email;
       $_SESSION['id'] = getIDFromEmail($con, $table, $idField, $emailField, $email);
-      echo $_SESSION['companyLoggedIn'];
-      echo $_SESSION['id'];
       header('Location: ../companies/index.php');
     }
 }
@@ -53,7 +52,6 @@ if (isset($_POST['registerButton'])) {
     $requirements = '';
 
   }
-  print_r($errorArray);
   if (empty($errorArray)) {
     $encryptedPw = md5($password1);
     $signUpDate = date("Y-m-d");
@@ -62,6 +60,7 @@ if (isset($_POST['registerButton'])) {
     VALUES('$companyName', '$email1', '$encryptedPw', '$about', '$we', '$description', '$requirements', '$signUpDate')
     ";
     if ($con->query($createCompanyAccountQuery)) {
+      unsetSessionVars();
       $_SESSION['companyLoggedIn'] = $email1;
       $_SESSION['id'] = getIDFromEmail($con, $table, $idField, $emailField, $email1);
       header('Location: ../companies/index.php');
@@ -73,27 +72,28 @@ if (isset($_POST['registerButton'])) {
 if (isset($_POST['updateDetails'])) {
 
   $name = sanitizeString($_POST['name']);
-  $email = sanitizeEmail($_POST['email']);
+  $email = sanitizeStringNoSpaces($_POST['email']);
   $about = sanitizeString($_POST['about']);
 
-  $errorArray = validateTextLength($errorArray, $cnWrongLength, $companyName, 2, 50);
+  $errorArray = validateTextLength($errorArray, $cnWrongLength, $name, 2, 50);
   $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $email, $table, $emailField);
 
+  if (!isset($_SESSION['adminLoggedIn'])) {
+    $companyID = $uid;
+  }
+
   if (empty($errorArray)) {
-    $sql = "
+    $updateDetailsQuery = "
     UPDATE companies
     SET companyName = '$name',
-    companyEmailAddress = '$email'
+    companyEmailAddress = '$email',
     companyAbout = '$about'
-    WHERE companyID = '$uid'
+    WHERE companyID = '$companyID'
     ";
-    // echo $sql;
-    $result = $con->query($sql);
-    if (!$result) {
-      echo 'error with insert';
-    }
+    echo $updateCompanyQuery;
+    $result = $con->query($updateDetailsQuery);
   } else {
-    echo 'error: ' . $errorArray[0];
+    print_r($errorArray);
   }
 }
 
@@ -108,7 +108,7 @@ if (isset($_POST['updatePassword'])) {
 
   if (empty($errorArray)) {
 
-    $errorArray = validatePasswords($errorArray, $pwDoNotMatch, $pwWrongLength, $password1, $password2);
+    $errorArray = validatePasswords($errorArray, $pwDoNotMatch, $pwWrongLength, $newPW1, $newPW2);
 
     if (empty($errorArray)) {
 
@@ -140,11 +140,7 @@ if (isset($_POST['updateWorkExperienceBtn'])) {
     companyWorkExperienceRequirements = '$requirements'
     WHERE companyID = '$uid'
     ";
-    // echo $sql;
     $result = $con->query($updateCompanyQuery);
-    if (!$result) {
-      echo 'error with insert';
-    }
   }
 }
 
@@ -157,9 +153,5 @@ if (isset($_POST['noWorkExperienceBtn'])) {
   companyWorkExperienceRequirements = ''
   WHERE companyID = '$uid'
   ";
-  // echo $sql;
   $result = $con->query($updateWorkExperienceQuery);
-  if (!$result) {
-    echo 'error with insert';
-  }
 }

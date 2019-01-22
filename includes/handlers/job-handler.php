@@ -2,77 +2,56 @@
 
 $errorArray = array();
 
-function getError($errorArray, $error){
-	if (!in_array($error, $errorArray))
-		$error = "";
-		return "<span class='errorMessage'>$error</span>";
+if (isset($_POST['addJobButton']) || isset($_POST['updateJobButton'])) {
+
+  $jobTitle = sanitizeString($_POST['jobTitle']);
+  $jobDescription = sanitizeString($_POST['jobDescription']);
+  $jobRequirements = sanitizeString($_POST['jobRequirements']);
+  $jobWages = sanitizeString($_POST['jobWages']);
+  $jobTimings = sanitizeString($_POST['jobTimings']);
+  $jobLocation= sanitizeString($_POST['jobLocation']);
+
+  $errorArray = validateTextLength($errorArray, $jobTitleLength, $jobTitle, 2, 100);
+  $errorArray = validateTextLength($errorArray, $jobDescriptionLength, $jobDescription, 50, 1000);
+  $errorArray = validateTextLength($errorArray, $jobRequirementsLength, $jobRequirements, 50, 1000);
+  $errorArray = validateTextLength($errorArray, $jobWagesLength, $jobWages, 2, 100);
+  $errorArray = validateTextLength($errorArray, $jobTimingsLength, $jobTimings, 2, 100);
+  $errorArray = validateTextLength($errorArray, $jobLocationLength, $jobLocation, 2, 100);
 }
 
+if (empty($errorArray)) {
 
-function validateShortString($errorArray, $string, $error){
-		if(strlen($string) > 100 || strlen($string) < 1) {
-			array_push($errorArray, $error);
+	if (isset($_POST['addJobButton'])) {
+
+		$addJobQuery = "
+		INSERT INTO jobs(jobCompanyID, jobTitle, jobDescription, jobRequirements, jobWages, jobTimings, jobLocation)
+		VALUES('$uid', '$jobTitle', '$jobDescription', '$jobRequirements', '$jobWages', '$jobTimings', '$jobLocation')";
+
+		if ($con->query($addJobQuery)) {
+			header("Location: jobs-list.php");
 		}
-    return $errorArray;
-}
 
-function validateLongString($errorArray, $string, $error){
-		if(strlen($string) > 500 || strlen($string) < 1) {
-			array_push($errorArray, $error);
-		}
-    return $errorArray;
-}
+	} else if (isset($_POST['updateJobButton']) || isset($_POST['deleteJobButton'])) {
 
-if (isset($_POST['addJobButton']) || isset($_POST['updateJobButton']) || isset($_POST['deleteJobButton'])) {
+		$jobID = $_POST['jobID'];
 
-  $jobTitle = $_POST['jobTitle'];
-  $jobDescription = $_POST['jobDescription'];
-  $jobRequirements = $_POST['jobRequirements'];
-  $jobWages = $_POST['jobWages'];
-  $jobTimings = $_POST['jobTimings'];
-  $jobLocation= $_POST['jobLocation'];
+		$setOldInactiveQuery = "
+		UPDATE jobs
+		SET jobActive = 'no'
+		WHERE jobID = '$jobID';
+		";
+		$con->query($setOldInactiveQuery);
 
-  $errorArray = validateShortString($errorArray, $jobTitle, $jobTitleLength);
-  $errorArray = validateLongString($errorArray, $jobDescription, $jobDescriptionLength);
-  $errorArray = validateLongString($errorArray, $jobRequirements, $jobRequirementsLength);
-  $errorArray = validateShortString($errorArray, $jobWages, $jobWagesLength);
-  $errorArray = validateShortString($errorArray, $jobTimings, $jobTimingsLength);
-  $errorArray = validateShortString($errorArray, $jobLocation, $jobLocationLength);
-
-	if (empty($errorArray)) {
-
-		if (isset($_POST['addJobButton'])) {
-
-			$addJobQuery = "
+		if (isset($_POST['updateJobButton'])) {
+			$addNewVersionQuery = "
 			INSERT INTO jobs(jobCompanyID, jobTitle, jobDescription, jobRequirements, jobWages, jobTimings, jobLocation)
-	    VALUES('$uid', '$jobTitle', '$jobDescription', '$jobRequirements', '$jobWages', '$jobTimings', '$jobLocation')";
-			$result = $con->query($addJobQuery);
-
-		} else if (isset($_POST['updateJobButton']) || isset($_POST['deleteJobButton'])) {
-
-			$jobID = $_POST['jobID'];
-
-			$setOldInactiveQuery = "
-			UPDATE jobs
-			SET jobActive = 'no'
-			WHERE jobID = '$jobID';
+			VALUES('$uid', '$jobTitle', '$jobDescription', '$jobRequirements', '$jobWages', '$jobTimings', '$jobLocation');
 			";
-			$result = $con->query($setOldInactiveQuery);
-
-			if (isset($_POST['updateJobButton'])) {
-				$addNewVersionQuery = "
-				INSERT INTO jobs(jobCompanyID, jobTitle, jobDescription, jobRequirements, jobWages, jobTimings, jobLocation)
-				VALUES('$uid', '$jobTitle', '$jobDescription', '$jobRequirements', '$jobWages', '$jobTimings', '$jobLocation');
-				";
-				$result = $con->query($addNewVersionQuery);
-			}
-
+			$con->query($addNewVersionQuery);
 		}
-
-		if ($result) {
-			header('Location: jobs-list.php');
-		}
+		header("Location: jobs-list.php");
 	}
+
 }
 
 ?>

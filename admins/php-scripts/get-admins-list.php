@@ -6,6 +6,7 @@ require '../../includes/login-checks/admin-login-check.php';
 $sql = "
 SELECT adminID, adminFirstName, adminLastName
 FROM admins
+WHERE adminLevel = '2'
 ";
 $result = $con->query($sql);
 
@@ -20,4 +21,5 @@ if ($result->num_rows > 0) {
   echo '0 results';
 }
 $con->close();
+
 ?>

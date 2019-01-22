@@ -10,7 +10,7 @@ SELECT applicationID, conversationStudentID, companyName, companyEmailAddress, a
 COALESCE(jobTitle, 'Work Experience') AS title
 FROM applications, companies, conversations
 LEFT JOIN jobs ON jobID = conversationJobID
-WHERE applicationStatus = 'accepted' AND applicationConversationID = conversationID AND conversationJobID = jobID AND conversationCompanyID = companyID  AND conversationStudentID = '$uid'
+WHERE applicationStatus = '$status' AND applicationConversationID = conversationID AND conversationJobID = jobID AND conversationCompanyID = companyID  AND conversationStudentID = '$uid'
 ORDER BY applicationLatestChangeDate DESC
 ";
 $result = $con->query($sql);

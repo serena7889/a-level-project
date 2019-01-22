@@ -20,11 +20,10 @@ require '../includes/login-checks/company-login-check.php';
         type: "GET",
         url: "php-scripts/get-jobs-list.php",
         async: false,
-        cache: false,
         success: function(data) {
           document.getElementById("list").innerHTML = data;
         }
-      });
+      })
 
       // FILTERS DIVS IN LIST BY SEARCH BAR INPUT
       $("#search_bar").on("keyup click input", function () {
@@ -36,8 +35,8 @@ require '../includes/login-checks/company-login-check.php';
             }).show();
         } else {
             $(".list_item_container").show();
-        };
-      });
+        }
+      })
 
       $(".list_item_container").click(function() {
         var jobID = $(this).data("job");
@@ -51,12 +50,13 @@ require '../includes/login-checks/company-login-check.php';
           success: function(data) {
               $("#right_container").html(data);
           }
-        });
-      });
+        })
+      })
 
-    });
+    })
 
     function goToEditJob(jobID) {
+      console.log("here");
       window.location.replace("edit-job.php?jobID="+jobID);
     }
 
@@ -90,6 +90,10 @@ require '../includes/login-checks/company-login-check.php';
       <div id="right_container" class="right_container">
 
       </div>
+
+      <script type="text/javascript">
+
+      </script>
 
   </body>
 </html>

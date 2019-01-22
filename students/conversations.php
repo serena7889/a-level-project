@@ -18,19 +18,6 @@ require '../includes/login-checks/student-login-check.php';
 
     <script type="text/javascript">
 
-    function getConversations() {
-      $.ajax({
-        type: "POST",
-        url: "php-scripts/get-conversations.php",
-        data: {
-          conversationID: conversationID
-        },
-        success: function(data, status) {
-          document.getElementById("conversations_list").innerHTML = data;
-        }
-      });
-    };
-
     function getConversationHeader(conversationID) {
       $.ajax({
         type: "POST",
@@ -43,7 +30,6 @@ require '../includes/login-checks/student-login-check.php';
         }
       });
     };
-
 
     function getMessages(conversationID) {
       $.ajax({
@@ -187,7 +173,6 @@ require '../includes/login-checks/student-login-check.php';
 
       // WHEN A CONVERSATION IS SELECTED
       $(".list_item_container").on("click", function() {
-        console.log('clicked');
 
         // STOPS REFRESHING MESSAGES FROM PREVIOUS CONVERSATION
         clearInterval(getMessageInterval);
@@ -229,7 +214,9 @@ require '../includes/login-checks/student-login-check.php';
         }, 800);
 
       });
+
     });
+
     </script>
 
   </head>

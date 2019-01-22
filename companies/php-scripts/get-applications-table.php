@@ -4,17 +4,16 @@ require '../../includes/config.php';
 require '../../includes/login-checks/company-login-check.php';
 
 $status = $_POST['status'];
-// echo '<h1>' . $status . '</h1>';
 
-$sql = "
+$getApplicationDetailsQuery = "
 SELECT applicationID, studentFirstName, studentLastName, studentEmailAddress, applicationStatus, applicationDate, applicationLatestChangeDate,
 COALESCE(jobTitle, 'Work Experience') AS title
 FROM applications, students, conversations
 LEFT JOIN jobs ON jobID = conversationJobID
-WHERE applicationStatus = '$status' AND applicationConversationID = conversationID AND conversationJobID = jobID AND conversationStudentID = studentID AND conversationCompanyID = '$uid'
+WHERE applicationStatus = '$status' AND applicationConversationID = conversationID AND conversationStudentID = studentID AND conversationCompanyID = '$uid'
 ORDER BY applicationLatestChangeDate DESC
 ";
-$result = $con->query($sql);
+$result = $con->query($getApplicationDetailsQuery);
 
 if ($status == 'accepted') {
 
@@ -93,7 +92,6 @@ if ($status == 'accepted') {
     echo '<h3>No declined applications yet.</h3>';
   }
 
-
 } else if ($status == 'undecided') {
 
   if ($result->num_rows > 0) {
@@ -130,12 +128,5 @@ if ($status == 'accepted') {
   }
 
 }
-
-
-
-
-
-
-
 
  ?>

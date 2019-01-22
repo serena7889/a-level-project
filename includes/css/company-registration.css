@@ -97,11 +97,11 @@ form {
   display: block;
 }
 
-.hasAccountText {
+.bottomText {
   text-align: center;
 }
 
-.hasAccountText span {
+.bottomText span {
   font-weight: bold;
   font-size: 12px;
   cursor: pointer;

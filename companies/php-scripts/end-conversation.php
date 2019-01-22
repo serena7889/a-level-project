@@ -8,7 +8,7 @@ $dateTime = date("Y-m-d H:i:s");
 
 $endConversation = "
 UPDATE conversations
-SET conversationActive = '0', conversationLatestTime = '$dateTime'
+SET conversationActive = 'no', conversationLatestTime = '$dateTime'
 WHERE conversationID = '$conversationID'
 ";
 $result = $con->query($endConversation);

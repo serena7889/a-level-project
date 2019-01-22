@@ -6,7 +6,7 @@ require '../../includes/login-checks/admin-login-check.php';
 $sql = "
 SELECT jobID, jobTitle, companyName
 FROM companies, jobs
-WHERE jobCompanyID = companyID
+WHERE jobCompanyID = companyID AND jobActive = 'yes'
 ";
 $result = $con->query($sql);
 

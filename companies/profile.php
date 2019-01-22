@@ -24,11 +24,9 @@ include '../includes/handlers/company-handler.php';
       var wantsToOfferWorkExperience = document.getElementById("wantsToOfferWorkExperience").value;
 
       if (wantsToOfferWorkExperience == 'yes') {
-        console.log('yes');
         $("#yesWorkExperience").attr('hidden', false);
         $("#noWorkExperience").attr('hidden', true);
       } else {
-        console.log('no');
         $("#noWorkExperience").attr('hidden', false);
         $("#yesWorkExperience").attr('hidden', true);
       }
@@ -64,13 +62,10 @@ include '../includes/handlers/company-handler.php';
       $email = $row['companyEmailAddress'];
       $about = $row['companyAbout'];
       $we = $row['companyOffersWorkExperience'];
-      // $we = 'no';
       $weDescription = $row['companyWorkExperienceDescription'];
       $weRequirements = $row['companyWorkExperienceRequirements'];
       $encryptedPassword = $row['companyPassword'];
       $signUp = $row['companySignUpDate'];
-    } else {
-      echo 'query error';
     }
 
     ?>
@@ -80,14 +75,18 @@ include '../includes/handlers/company-handler.php';
       <div class="col">
         <form action="profile.php" method="post">
           <p>
+            <?php echo getError($errorArray, $cnWrongLength); ?>
             <label for="name">Company Name: </label>
-            <input type="text" name="name" value="<?php echo $name; ?>" placeholder="e.g. Krusty Krabby">
+            <input type="text" name="name" value="<?php echo $name; ?>" placeholder="e.g. Star Labs">
           </p>
           <p>
+            <?php echo getError($errorArray, $emTaken); ?>
+            <?php echo getError($errorArray, $emInvalid); ?>
             <label for="email">Email address: </label>
-            <input type="text" name="email" value="<?php echo $email; ?>" placeholder="e.g. krusty@krabby.com">
+            <input type="text" name="email" value="<?php echo $email; ?>" placeholder="e.g. harry@starlabs.com">
           </p>
           <p>
+            <?php echo getError($errorArray, $aboutWrongLength); ?>
             <label for="about">About your company:</label>
             <input type="text" name="about" value="<?php echo $about; ?>">
           </p>
@@ -96,10 +95,13 @@ include '../includes/handlers/company-handler.php';
 
         <form action="profile.php" method="post">
           <p>
+            <?php echo getError($errorArray, $pwNotCurrent); ?>
             <label for="oldPassword">Enter your current password: </label>
             <input type="password" name="oldPassword">
           </p>
           <p>
+            <?php echo getError($errorArray, $pwWrongLength); ?>
+            <?php echo getError($errorArray, $pwDoNotMatch); ?>
             <label for="newPassword1">Enter your new password: </label>
             <input type="password" name="newPassword1">
           </p>
@@ -114,13 +116,14 @@ include '../includes/handlers/company-handler.php';
       <div class="col">
         <form action="profile.php" method="post">
           <input id="wantsToOfferWorkExperience" type="hidden" name="wantsToOfferWorkExperience" value="<?php echo $we; ?>">
-
           <div id="yesWorkExperience" hidden>
           <p>
+            <?php echo getError($errorArray, $descWrongLength); ?>
             <label for="description"> Work Experience Description:</label>
             <input id="description" type="text" name="description" value="<?php echo $weDescription; ?>">
           </p>
           <p>
+            <?php echo getError($errorArray, $reqWrongLength); ?>
             <label for="description"> Work Experience Requirements:</label>
             <input id="requirements" type="text" name="requirements" value="<?php echo $weRequirements; ?>">
           </p>
@@ -134,6 +137,7 @@ include '../includes/handlers/company-handler.php';
 
         </form>
       </div>
+
     </div>
 
   </body>

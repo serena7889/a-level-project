@@ -21,15 +21,16 @@ require '../includes/login-checks/company-login-check.php';
         $("#accepted").addClass("selected");
         $("#declined").removeClass("selected");
         $("#undecided").removeClass("selected");
-      } else if (status == "undecided") {
+      } else if (status == 'undecided') {
         $("#undecided").addClass("selected");
         $("#declined").removeClass("selected");
         $("#accepted").removeClass("selected");
-      } else if (status == "declined") {
+      } else if (status == 'declined') {
         $("#declined").addClass("selected");
         $("#accepted").removeClass("selected");
         $("#undecided").removeClass("selected");
       }
+      console.log(status);
 
       $.ajax({
         type:"POST",
@@ -38,7 +39,6 @@ require '../includes/login-checks/company-login-check.php';
           status: status
         },
         success: function(data, status){
-          console.log('made it back here');
           $("#applications_table_container").html(data);
         }
       })
