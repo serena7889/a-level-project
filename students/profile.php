@@ -24,13 +24,13 @@ include '../includes/handlers/student-handler.php';
 
     <?php
     include '../includes/headers/student-header.php';
-    $sql = "
+    $getStudentDetailsQuery = "
     SELECT studentFirstName, studentLastName, studentEmailAddress, studentPassword, studentDateOfBirth, studentSignUpDate
     FROM students
-    WHERE studentID = $uid
+    WHERE studentID = '$uid'
     ";
 
-    $result = $con->query($sql);
+    $result = $con->query($getStudentDetailsQuery);
     if ($result->num_rows == 1) {
       $row = $result->fetch_assoc();
       $firstName = $row['studentFirstName'];
@@ -39,8 +39,6 @@ include '../includes/handlers/student-handler.php';
       $encryptedPassword = $row['studentPassword'];
       $dob = $row['studentDateOfBirth'];
       $signUp = $row['studentSignUpDate'];
-    } else {
-      echo 'query error';
     }
 
 

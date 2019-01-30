@@ -43,7 +43,7 @@ if (isset($_POST['registerButton'])) {
 
   $errorArray = validateTextLength($errorArray, $fnWrongLength, $firstName, 2, 25);
   $errorArray = validateTextLength($errorArray, $lnWrongLength, $lastName, 2, 25);
-  $errorArray = validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, $emWrongLength, $email1, $email2, $table, $emailField);
+  $errorArray = validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, $emWrongLength, $uid, $email1, $email2, $table, $emailField);
   $errorArray = validatePasswords($errorArray, $pwDoNotMatch, $pwWrongLength, $password1, $password2);
   $errorArray = validateTextLength($errorArray, $cvWrongLength, $cv, 50, 1000);
 
@@ -74,7 +74,7 @@ if (isset($_POST['updateDetails'])) {
 
   $errorArray = validateTextLength($errorArray, $fnWrongLength, $firstName, 2, 25);
   $errorArray = validateTextLength($errorArray, $lnWrongLength, $lastName, 2, 25);
-  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $email, $table, $emailField);
+  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $uid, $email, $table, $emailField);
 
   if (empty($errorArray)) {
     $updateStudentQuery = "

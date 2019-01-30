@@ -5,33 +5,25 @@ require '../../includes/login-checks/student-login-check.php';
 
 $companyID = $_POST['companyID'];
 
-$sql = "
+$getCompanyDetailsQuery = "
 SELECT companyID, companyName, companyAbout, companyWorkExperienceDescription, companyWorkExperienceRequirements
 FROM companies
-WHERE companyID = '$companyID'
-";
-
-$result = $con->query($sql);
+WHERE companyID = '$companyID'";
+$result = $con->query($getCompanyDetailsQuery);
 
 if ($result->num_rows == 1) {
   $row = $result->fetch_assoc();
-
   $companyID = $row['companyID'];
   $companyName = $row['companyName'];
   $companyAbout = $row['companyAbout'];
   $workExperienceDescription = $row['companyWorkExperienceDescription'];
   $workExperienceRequirements = $row['companyWorkExperienceRequirements'];
-
-} else {
-  echo 'query failure';
 }
 
 echo '
-
 <div class="right_header">
   <h1>Work Experience | ' . $companyName . '</h1>
 </div>
-
 <div class="middle_container">
   <h3>About the company</h3>
   <p>' . $companyAbout . '</p>
@@ -39,15 +31,12 @@ echo '
   <p>' . $workExperienceDescription . '</p>
   <h3>Requirements</h3>
   <p>' . $workExperienceRequirements . '</p>
-</div>
-';
+</div>';
 
 $alreadyConversationQuery = "
   SELECT conversationID
   FROM conversations
-  WHERE conversationCompanyID = '$companyID' AND conversationStudentID = '$uid' AND conversationJobID = 'null' AND conversationActive = 'yes' 
-";
-
+  WHERE conversationCompanyID = '$companyID' AND conversationStudentID = '$uid' AND conversationJobID IS NULL AND conversationActive = 'yes'";
 $result = $con->query($alreadyConversationQuery);
 
 if ($result->num_rows == 0) {
@@ -63,5 +52,4 @@ if ($result->num_rows == 0) {
     <h1>Already started conversation</h1>
   </div>';
 }
-
 ?>

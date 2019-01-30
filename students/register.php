@@ -83,9 +83,9 @@ include '../includes/handlers/student-handler.php';
 
         <button type="submit" name="loginButton">LOG IN!</button>
 
-        <div class="hasAccountText" href="#">
-          <span id="toRegister">Don't have an account yet? Click here to register...</span>
-          <p>Trouble logging in? <a href="mailto:serenalambert1731@gmail.com?subject=Forgot%20password">Get in touch!</a></p>
+        <div class="bottomText">
+          <span id="toRegister">Don't have an account yet? Click here to register...</span><br>
+          <span>Trouble logging in? <a href="mailto:serenalambert1731@gmail.com?subject=Forgot%20password">Get in touch!</a></span>
         </div>
       </form>
 
@@ -100,25 +100,25 @@ include '../includes/handlers/student-handler.php';
           <div class="row">
 
             <div class="col">
-              <?php echo getError($errorArray, $fnWrongLength); ?>
               <label for="registerFirstName">First name: </label>
+              <?php echo getError($errorArray, $fnWrongLength); ?>
               <input id="registerFirstName" type="text" name="registerFirstName" placeholder="e.g. Barry" value="<?php getValue('registerFirstName'); ?>" required>
             </div>
 
             <div class="col">
-              <?php echo getError($errorArray, $lnWrongLength); ?>
               <label for="registerLastName">Last name: </label>
+              <?php echo getError($errorArray, $fnWrongLength); ?>
               <input id="registerLastName" type="text" name="registerLastName" placeholder="e.g. Allen" value="<?php getValue('registerLastName'); ?>" required>
             </div>
 
           </div>
 
           <div>
+            <label for="registerEmail1">Email: </label>
             <?php echo getError($errorArray, $emDoNotMatch); ?>
             <?php echo getError($errorArray, $emTaken); ?>
             <?php echo getError($errorArray, $emInvalid); ?>
             <?php echo getError($errorArray, $emWrongLength); ?>
-            <label for="registerEmail1">Email: </label>
             <input id="registerEmail1" type="email" name="registerEmail1" placeholder="e.g. flash@starlabs.com" value="<?php getValue('registerEmail1'); ?>" required>
           </div>
 
@@ -151,7 +151,7 @@ include '../includes/handlers/student-handler.php';
 
           <button id="next" type="button">NEXT</button>
 
-          <div class="hasAccountText" href="#">
+          <div class="bottomText">
             <span id="toLogin">Already have an account? Click here to login...</span>
           </div>
 
@@ -162,7 +162,7 @@ include '../includes/handlers/student-handler.php';
           <div>
             <label for="cv">Tell companies a bit about yourself:</label>
             <?php echo getError($errorArray, $cvWrongLength); ?>
-            <textarea id="cv" class="longText" type="text" name="cv" value="<?php getValue('cv');?>" placeholder="Tell companies a bit about yourself. You could include information about your interests, qualifications, experience..." required></textarea>
+            <textarea id="cv" class="longText" type="text" name="cv" value="<?php getValue('cv'); ?>" placeholder="Tell companies a bit about yourself. You could include information about your interests, qualifications, experience..." required></textarea>
           </div>
 
           <button id="back" type="button">BACK</button>

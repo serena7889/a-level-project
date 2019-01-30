@@ -10,9 +10,7 @@ SELECT companyName,
 COALESCE(jobTitle, 'Work Experience') AS conversationTitle
 FROM companies, conversations
 LEFT JOIN jobs ON jobID = conversationJobID
-WHERE conversationCompanyID = companyID and conversationStudentID = '$uid' AND conversationID = '$conversationID'
-";
-
+WHERE conversationCompanyID = companyID and conversationStudentID = '$uid' AND conversationID = '$conversationID' AND conversationActive = 'yes'";
 $result = $con->query($headerDetailsQuery);
 
 if ($result->num_rows == 1) {
@@ -25,15 +23,13 @@ if ($result->num_rows == 1) {
       <h1 id="title" onclick="showOpportunityDetails(' . $conversationID . ')">' . $title . ' </h1>
       <h1> | </h1>
       <h1 id="company_name" onclick="showCompanyDetails(' . $conversationID . ')">' . $companyName . '</h1>
-    </div>
-    ';
+    </div>';
 
     // ONLY SHOW 'APPLY BUTTON' IF THE STUDENT HAS NOT ALREADY APPLIED
     $checkNotAppliedQuery = "
     SELECT applicationID
     FROM applications
-    WHERE applicationConversationID = '$conversationID'
-    ";
+    WHERE applicationConversationID = '$conversationID'";
     $result = $con->query($checkNotAppliedQuery);
     if ($result->num_rows == 0) {
       echo '

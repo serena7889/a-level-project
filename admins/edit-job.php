@@ -65,13 +65,13 @@ if ($result->num_rows == 1) {
 		  <div>
 		    <label for="jobDescription">Description: </label>
 				<?php echo getError($errorArray, $jobDescriptionLength); ?>
-		    <input id="jobDescription" type="text" name="jobDescription" placeholder="" value="<?php echo $jobDescription; ?>" required>
+		    <textarea id="jobDescription" type="text" name="jobDescription" required><?php echo $jobDescription; ?></textarea>
 		  </div>
 
 		  <div>
 		    <label for="jobRequirements">Requirements: </label>
 				<?php echo getError($errorArray, $jobRequirementsLength); ?>
-		    <input id="jobRequirements" type="text" name="jobRequirements" placeholder="" value="<?php echo $jobRequirements; ?>" required>
+				<textarea id="jobRequirements" name="jobRequirements" required><?php echo $jobRequirements; ?></textarea>
 		  </div>
 
 		  <div>

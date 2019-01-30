@@ -24,25 +24,49 @@ include '../includes/headers/company-header.php';
 
 echo '<div class="container"><div class="central_container">';
 
-$getNameAndWEAndJobsAndConvosQuery = "
-	SELECT companyName, companyOffersWorkExperience AS we, COUNT(conversationID) AS convoCount, COUNT(jobID) AS jobCount
-	FROM companies, conversations, jobs
-	WHERE companyID = '$uid' AND conversationCompanyID = companyID AND conversationActive = 'yes' AND jobCompanyID = companyID
-";
-$result = $con->query($getNameAndWEAndJobsAndConvosQuery);
+$getNameAndWEQuery = "
+	SELECT companyName, companyOffersWorkExperience AS we
+	FROM companies
+	WHERE companyID = '$uid'";
+
+$result = $con->query($getNameAndWEQuery);
 if ($result->num_rows == 1) {
 	$row = $result->fetch_assoc();
 	$name = $row['companyName'];
   $we = ($row['we'] == 'yes' ? '' : 'do not');
-	$convoCount = $row['convoCount'];
-  $jobCount = $row['jobCount'];
+	echo '<h1>Welcome, ' . $name . '!</h1>';
+	echo '<h4>You ' . $we . ' offer work experience.</h4>';
 }
 
-echo '<h1>Welcome, ' . $name . '!</h1>';
-echo '<h4>You ' . $we . ' offer work experience.</h4>';
-echo '<h4>You have posted ' . $jobCount . ' jobs.</h4>';
-echo '<h4>You are part of ' . $convoCount . ' active conversations.</h4>';
-echo '<h4>You have:</h4>';
+
+$getJobCountQuery = "
+	SELECT COUNT(jobID) AS jobCount
+	FROM jobs
+	WHERE jobCompanyID = '$uid'";
+
+$result = $con->query($getJobCountQuery);
+if ($result->num_rows == 1) {
+	$row = $result->fetch_assoc();
+	$jobCount = $row['jobCount'];
+	if ($jobCount > 0) {
+		echo '<h4>You have posted ' . $jobCount . ' jobs.</h4>';
+	}
+}
+
+$getConversationCountQuery = "
+	SELECT COUNT(conversationID) AS convoCount
+	FROM conversations
+	WHERE conversationCompanyID = '$uid'";
+
+$result = $con->query($getConversationCountQuery);
+if ($result->num_rows == 1) {
+	$row = $result->fetch_assoc();
+	$convoCount = $row['convoCount'];
+	if ($convoCount > 0) {
+		echo '<h4>You are part of ' . $convoCount . ' active conversations.</h4>';
+	}
+}
+
 $getApplicationNumbersQuery = "
 	SELECT applicationStatus, COUNT(applicationID) AS numApplications
 	FROM applications, conversations
@@ -52,13 +76,12 @@ $getApplicationNumbersQuery = "
 ";
 $result = $con->query($getApplicationNumbersQuery);
 if ($result->num_rows > 0) {
+	echo '<h4>You have:</h4>';
 	while ($row = $result->fetch_assoc()) {
 		$status = $row['applicationStatus'];
 		$numApplications = $row['numApplications'];
 		echo '<h5>' . $numApplications . ' ' . $status . ' applications</h5>';
 	}
-} else {
-	echo '<h5>No applications</h5>';
 }
 echo '</div></div>';
 ?>

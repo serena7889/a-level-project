@@ -98,14 +98,27 @@ function validateUnique($con, $errorArray, $emTaken, $table, $emailField, $email
   $checkUniqueQuery = "
   SELECT $emailField
   FROM $table
-  WHERE $emailField = '$email' AND $idfield != '$uid'
-  ";
+  WHERE $emailField = '$email'";
   $result = $con->query($checkUniqueQuery);
   if ($result->num_rows > 0) {
       array_push($errorArray, $emTaken);
   }
   return $errorArray;
 }
+
+function validateUniqueUpdate($con, $errorArray, $emTaken, $uid, $table, $emailField, $email) {
+  // adds error if the email has already been registered with that user type
+  $checkUniqueQuery = "
+  SELECT $emailField
+  FROM $table
+  WHERE $emailField = '$email' AND $idfield != '$uid'";
+  $result = $con->query($checkUniqueQuery);
+  if ($result->num_rows > 0) {
+      array_push($errorArray, $emTaken);
+  }
+  return $errorArray;
+}
+
 
 function validateEmailFormat($errorArray, $emInvalid, $email) {
   // adds error if email is in an invalid format
@@ -114,7 +127,7 @@ function validateEmailFormat($errorArray, $emInvalid, $email) {
   } return $errorArray;
 }
 
-function validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, $emWrongLength, $email1, $email2, $table, $emailField) {
+function validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, $emWrongLength, $uid, $email1, $email2, $table, $emailField) {
   // used to validate email with re-entered email
   // adds errors returned from these validation checks
   $errorArray = validateSame($errorArray, $emDoNotMatch, $email1, $email2);
@@ -124,12 +137,12 @@ function validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, 
   return $errorArray;
 }
 
-function validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $email, $table, $emailField) {
+function validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $uid, $email, $table, $emailField) {
   // used to validate email single email
   // adds errors returned from these validation checks
   $errorArray = validateTextLength($errorArray, $emWrongLength, $email, 2, 100);
   $errorArray = validateEmailFormat($errorArray, $emInvalid, $email);
-  $errorArray = validateUnique($con, $errorArray, $emTaken, $table, $emailField, $email);
+  $errorArray = validateUniqueUpdate($con, $errorArray, $emTaken, $uid, $table, $emailField, $email);
   return $errorArray;
 }
 
@@ -147,9 +160,7 @@ function validateCurrentPassword($con, $errorArray, $pwNotCurrent, $table, $idFi
   $checkCurrentPasswordQuery = "
   SELECT $idField
   FROM $table
-  WHERE $idField = '$uid' AND $passwordField = '$encryptedPw'
-  ";
-  echo $checkCurrentPasswordQuery;
+  WHERE $idField = '$uid' AND $passwordField = '$encryptedPw'";
   $result = $con->query($checkCurrentPasswordQuery);
   if ($result->num_rows != 1) {
     array_push($errorArray, $pwNotCurrent);

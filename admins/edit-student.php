@@ -74,11 +74,6 @@ include '../includes/handlers/admin-handler.php';
       <div class="col">
         <form method="post">
           <p>
-            <label for="oldPassword">Enter your current password: </label>
-            <?php echo getError($errorArray, $pwNotCurrent);?>
-            <input type="password" name="oldPassword">
-          </p>
-          <p>
             <label for="newPassword1">Enter your new password: </label>
             <?php echo getError($errorArray, $pwWrongLength);?>
             <?php echo getError($errorArray, $pwDoNotMatch);?>

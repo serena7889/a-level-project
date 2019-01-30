@@ -106,8 +106,9 @@ include '../includes/handlers/company-handler.php';
 
         <br><br>
 
-        <div class="hasAccountText" href="#">
-          <span id="toRegister">Don't have an account yet? Click here to register...</span>
+        <div class="bottomText" href="#">
+          <span id="toRegister">Don't have an account yet? Click here to register...</span><br>
+          <span>Trouble logging in? <a href="mailto:serenalambert1731@gmail.com?subject=Forgot%20password">Get in touch!</a></span>
         </div>
 
       </form>
@@ -155,7 +156,7 @@ include '../includes/handlers/company-handler.php';
 
           <button id="next" type="button">NEXT</button>
 
-          <div class="hasAccountText" href="#">
+          <div class="bottomText" href="#">
             <span id="toLogin">Already have an account? Click here to login...</span>
           </div>
 
@@ -165,6 +166,7 @@ include '../includes/handlers/company-handler.php';
 
           <div>
             <label for="about">About your company:</label>
+            <?php echo getError($errorArray, $aboutWrongLength); ?>
             <textarea id="about" class="longText" type="text" name="about" value="<?php getValue('about'); ?>" placeholder="Tell us about your company! Here is where you can provide any information about your company that would be useful to students... This could include how long you've been around, your companies size, what your company does, what the working environment is like etc. (This will be visible on any opportunities you post)" required></textarea>
           </div>
 
@@ -179,11 +181,13 @@ include '../includes/handlers/company-handler.php';
 
             <div>
               <label for="description">Work experience description:</label>
+              <?php echo getError($errorArray, $descWrongLength); ?>
               <textarea id="description" class="longText" type="text" name="description" value="<?php getValue('description'); ?>" placeholder="Let students know what sort of opportunities you can offer. Maybe include what roles they could have, what they could spend time doing, etc." required></textarea>
             </div>
 
             <div>
               <label for="requirements">Work experience requirements:</label>
+              <?php echo getError($errorArray, $reqWrongLength); ?>
               <textarea id="requirements" class="longText" type="text" name="requirements" value="<?php getValue('requirements'); ?>" placeholder="What are you looking for in a student doing work experience with you? This could be character traits, age, qualifications, interests etc." required></textArea>
             </div>
 

@@ -117,12 +117,12 @@ if ($result->num_rows == 1) {
 	          <p>
 	            <?php echo getError($errorArray, $descWrongLength); ?>
 	            <label for="description"> Work Experience Description:</label>
-	            <input id="description" type="text" name="description" value="<?php echo $weDescription; ?>">
+							<textarea id="description" name="description"><?php echo $weDescription; ?></textarea>
 	          </p>
 	          <p>
 	            <?php echo getError($errorArray, $reqWrongLength); ?>
 	            <label for="description"> Work Experience Requirements:</label>
-	            <input id="requirements" type="text" name="requirements" value="<?php echo $weRequirements; ?>">
+							<textarea id="requirements" name="requirements"><?php echo $weRequirements; ?></textarea>
 	          </p>
 	          <input id="updateCompanyWorkExperienceBtn" type="submit" name="updateCompanyWorkExperienceBtn" value="Update work experience details">
 	          <input id="noWorkExperienceBtn" type="submit" name="noWorkExperienceBtn" value="We don't want to offer work experience">

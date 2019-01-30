@@ -84,14 +84,19 @@ form {
   width: 100%;
 }
 
-.hasAccountText {
+.bottomText {
   text-align: center;
 }
 
-.hasAccountText span {
+.bottomText span {
   font-weight: bold;
   font-size: 12px;
   cursor: pointer;
+  color: #578684;
+}
+
+.bottomText a {
+  font-weight: bolder;
   color: #578684;
 }
 

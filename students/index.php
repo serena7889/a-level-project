@@ -22,21 +22,20 @@ require '../includes/login-checks/student-login-check.php';
 <?php
 include '../includes/headers/student-header.php';
 echo '<div class="container"><div class="central_container">';
-
-$getNameAndConvosQuery = "
-	SELECT studentFirstName, studentLastName, count(conversationID) as convoCount
-	FROM students, conversations
-	WHERE studentID = '$uid' AND conversationStudentID = studentID AND conversationActive = 'yes'
+// count(conversationID) as convoCount
+$getNameQuery = "
+	SELECT studentFirstName, studentLastName
+	FROM students
+	WHERE studentID = '$uid'
 ";
-$result = $con->query($getNameAndConvosQuery);
+$result = $con->query($getNameQuery);
 if ($result->num_rows == 1) {
 	$row = $result->fetch_assoc();
 	$name = $row['studentFirstName'] . ' ' . $row['studentLastName'];
-	$convoCount = $row['convoCount'];
+	// $convoCount = $row['convoCount'];
+	echo '<h1>Welcome, ' . $name . '!</h1>';
+	// echo '<h4>You are part of ' . $convoCount . ' active conversations.</h4>';
 }
-
-echo '<h1>Welcome, ' . $name . '!</h1>';
-echo '<h4>You are part of ' . $convoCount . ' active conversations.</h4>';
 echo '<h4>You have:</h4>';
 $getApplicationNumbersQuery = "
 	SELECT applicationStatus, COUNT(applicationID) AS numApplications
@@ -54,9 +53,10 @@ if ($result->num_rows > 0) {
 	}
 } else {
 	echo '<h5>No applications</h5>';
+}
 
 
-echo '</div></div>'
+echo '</div></div>';
 ?>
 </body>
 </html>

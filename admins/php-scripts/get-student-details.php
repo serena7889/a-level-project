@@ -5,13 +5,13 @@ require '../../includes/login-checks/admin-login-check.php';
 
 $studentID = $_POST['studentID'];
 
-$sql = "
-SELECT studentID, studentFirstName, studentLastName, studentEmailAddress, studentDateOfBirth
+$getStudentDetailsQuery = "
+SELECT studentID, studentFirstName, studentLastName, studentEmailAddress, studentDateOfBirth, studentCV
 FROM students
 WHERE studentID = '$studentID'
 ";
 
-$result = $con->query($sql);
+$result = $con->query($getStudentDetailsQuery);
 
 if ($result->num_rows == 1) {
   $row = $result->fetch_assoc();
@@ -20,13 +20,11 @@ if ($result->num_rows == 1) {
   $studentLastName = $row['studentLastName'];
   $studentEmail = $row['studentEmailAddress'];
   $studentDOB = $row['studentDateOfBirth'];
+  $studentCV = $row['studentCV'];
 
-} else {
-  echo 'query failure';
 }
 
 echo '
-
 <div class="right_header">
   <h1>' . $studentFirstName . ' ' . $studentLastName . '</h1>
 </div>
@@ -36,6 +34,8 @@ echo '
   <p>' . $studentEmail . '</p>
   <h3>Date of birth</h3>
   <p>' . $studentDOB . '</p>
+  <h3>CV</h3>
+  <p>' . $studentCV . '</p>
 </div>';
 
 if ($level == 1) {

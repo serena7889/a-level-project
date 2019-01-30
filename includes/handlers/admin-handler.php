@@ -33,22 +33,19 @@ if (isset($_POST['addAdminButton'])) {
   $email2 = sanitizeStringNoSpaces($_POST['email2']);
   $password1 = sanitizeString($_POST['password1']);
   $password2 = sanitizeString($_POST['password2']);
-  echo '1: ' . $password1 . ' ' . '2: ' . $password2;
 
   $errorArray = validateTextLength($errorArray, $fnWrongLength, $firstName, 2, 25);
   $errorArray = validateTextLength($errorArray, $lnWrongLength, $lastName, 2, 25);
-  $errorArray = validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, $emWrongLength, $email1, $email2, $table, $emailField);
+  $errorArray = validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, $adminID, $emWrongLength, $email1, $email2, 'admins', 'adminEmailAddress');
   $errorArray = validatePasswords($errorArray, $pwDoNotMatch, $pwWrongLength, $password1, $password2);
 
   if (empty($errorArray)) {
-    print_r($errorArray);
     $encryptedPw = md5($password1);
     $signUpDate = date("Y-m-d");
     $createAdminQuery = "
     INSERT INTO admins(adminFirstName, adminLastName, adminEmailAddress, adminPassword, adminSignUpDate)
     VALUES('$firstName', '$lastName', '$email1', '$encryptedPw', '$signUpDate')
     ";
-    echo $createAdminQuery;
     if ($con->query($createAdminQuery)) {
       header('Location: admins.php');
     }
@@ -64,7 +61,7 @@ if (isset($_POST['updateDetails'])) {
 
   $errorArray = validateTextLength($errorArray, $fnWrongLength, $firstName, 2, 25);
   $errorArray = validateTextLength($errorArray, $lnWrongLength, $lastName, 2, 25);
-  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $email, $table, $emailField);
+  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $uid, $email, $table, $emailField);
 
   if (empty($errorArray)) {
     $updateDetailsQuery = "
@@ -112,7 +109,7 @@ if (isset($_POST['updateAdminDetails'])) {
 
   $errorArray = validateTextLength($errorArray, $fnWrongLength, $firstName, 2, 25);
   $errorArray = validateTextLength($errorArray, $lnWrongLength, $lastName, 2, 25);
-  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $email, $table, $emailField);
+  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $adminID, $email, $table, $emailField);
 
   if (empty($errorArray)) {
     $updateAdminQuery = "
@@ -158,7 +155,7 @@ if (isset($_POST['updateCompanyDetails'])) {
   $about = sanitizeString($_POST['about']);
 
   $errorArray = validateTextLength($errorArray, $cnWrongLength, $name, 2, 50);
-  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $email, $table, $emailField);
+  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $companyID, $email, $table, $emailField);
 
   if (empty($errorArray)) {
     $updateDetailsQuery = "
@@ -240,7 +237,7 @@ if (isset($_POST['updateStudentDetails'])) {
 
   $errorArray = validateTextLength($errorArray, $fnWrongLength, $firstName, 2, 25);
   $errorArray = validateTextLength($errorArray, $lnWrongLength, $lastName, 2, 25);
-  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $email, $table, $emailField);
+  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $studentID, $email, $table, $emailField);
 
   if (empty($errorArray)) {
     $updateStudentQuery = "
@@ -251,7 +248,6 @@ if (isset($_POST['updateStudentDetails'])) {
     studentDateOfBirth = '$dob'
     WHERE studentID = '$studentID'
     ";
-    echo $updateStudentQuery;
     $result = $con->query($updateStudentQuery);
     $_SESSION['studentLoggedIn'] = $email;
   }
@@ -260,25 +256,19 @@ if (isset($_POST['updateStudentDetails'])) {
 // UPDATE PASSWORD BUTTON PRESSED ON PROFILE PAGE
 if (isset($_POST['updateStudentPassword'])) {
 
-  $oldPW = sanitizeString($_POST['oldPassword']);
   $newPW1 = sanitizeString($_POST['newPassword1']);
   $newPW2 = sanitizeString($_POST['newPassword2']);
 
-  $errorArray = validateCurrentPassword($con, $errorArray, $pwNotCurrent, 'students', 'studentID', 'studentPassword', $studentID, $oldPW);
+  $errorArray = validatePasswords($errorArray, $pwDoNotMatch, $pwWrongLength, $newPW1, $newPW2);
 
   if (empty($errorArray)) {
-
-    $errorArray = validatePasswords($errorArray, $pwDoNotMatch, $pwWrongLength, $newPW1, $newPW2);
-
-    if (empty($errorArray)) {
-      $encryptedPw = md5($newPW1);
-      $updateStudentQuery = "
-      UPDATE students
-      SET studentPassword = '$encryptedPw'
-      WHERE studentID = '$studentID'
-      ";
-      $result = $con->query($updateStudentQuery);
-    }
+    $encryptedPw = md5($newPW1);
+    $updateStudentQuery = "
+    UPDATE students
+    SET studentPassword = '$encryptedPw'
+    WHERE studentID = '$studentID'
+    ";
+    $result = $con->query($updateStudentQuery);
   }
 }
 

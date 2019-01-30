@@ -1,6 +1,6 @@
 <?php
 require '../includes/config.php';
-require '../includes/login-checks/admin-login-check.php';
+require '../includes/login-checks/super-admin-login-check.php';
 ?>
 
 <html lang="en" dir="ltr">

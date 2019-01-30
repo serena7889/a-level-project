@@ -35,7 +35,7 @@ if (isset($_POST['registerButton'])) {
   $we = $_POST['yesNoVal'];
 
   $errorArray = validateTextLength($errorArray, $cnWrongLength, $companyName, 2, 50);
-  $errorArray = validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, $emWrongLength, $email1, $email2, $table, $emailField);
+  $errorArray = validateEmails($con, $errorArray, $emDoNotMatch, $emTaken, $emInvalid, $emWrongLength, $uid, $email1, $email2, $table, $emailField);
   $errorArray = validatePasswords($errorArray, $pwDoNotMatch, $pwWrongLength, $password1, $password2);
   $errorArray = validateTextLength($errorArray, $aboutWrongLength, $about, 50, 1000);
 
@@ -76,7 +76,7 @@ if (isset($_POST['updateDetails'])) {
   $about = sanitizeString($_POST['about']);
 
   $errorArray = validateTextLength($errorArray, $cnWrongLength, $name, 2, 50);
-  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $email, $table, $emailField);
+  $errorArray = validateEmailsUpdate($con, $errorArray, $emTaken, $emInvalid, $emWrongLength, $uid, $email, $table, $emailField);
 
   if (!isset($_SESSION['adminLoggedIn'])) {
     $companyID = $uid;

@@ -92,13 +92,18 @@ require '../includes/login-checks/company-login-check.php';
       };
     };
 
-    function changeStatus(conversationID, newStatus) {
+    function changeStatus(conversationID, newStatus)
+    {
+      console.log('status' + newStatus);
       $.ajax({
         type: "POST",
         url: "php-scripts/change-application-status.php",
         data: {
           conversationID: conversationID,
           newStatus: newStatus
+        },
+        success: function() {
+          window.location.replace('applications.php');
         }
       });
     };

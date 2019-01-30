@@ -108,6 +108,11 @@ form {
   color: #336845;
 }
 
+.bottomText a {
+  font-weight: bolder;
+  color: #336845;
+}
+
 #yesNoBtns {
     margin: 0;
 }
