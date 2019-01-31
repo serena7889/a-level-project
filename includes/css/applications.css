@@ -15,13 +15,6 @@ nav {
   z-index: 2;
 }
 
-/* .container {
-  height: 100vh;
-  width: 100vw;
-  padding: 10px 20px;
-  margin: 0;
-} */
-
 h1, h3, th {
   color: #05728f;
 }
@@ -56,5 +49,4 @@ button.selected {
   color: #fff;
   height: 35px;
   cursor: pointer;
-  /* margin: 20px; */
 }

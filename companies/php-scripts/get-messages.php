@@ -20,28 +20,6 @@ if ($result->num_rows > 0) {
       $time = date("h:ia | d/m/y", strtotime($time));
       $content = $row['messageContent'];
 
-      // if ($row['messageSender'] == 'company') {
-      //   // message from student
-      //
-      //   echo '
-      //   <div class="sent_message_container">
-      //     <div class="sent_message">
-      //       <p>' . $content . '</p>
-      //       <span class="time_date">' . $time . '</span>
-      //     </div>
-      //   </div>';
-      //
-      // } else {
-      //   // message from company
-      //   echo '
-      //   <div class="received_message_container">
-      //     <div class="received_message">
-      //       <p>' . $row['messageContent'] . '</p>
-      //       <span class="time_date">' . $time . '</span>
-      //     </div>
-      //   </div>';
-      // }
-
       if ($row['messageSender'] == 'company') {
         // message from student
         echo '

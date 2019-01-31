@@ -32,10 +32,9 @@ $result = $con->query($getNameQuery);
 if ($result->num_rows == 1) {
 	$row = $result->fetch_assoc();
 	$name = $row['studentFirstName'] . ' ' . $row['studentLastName'];
-	// $convoCount = $row['convoCount'];
 	echo '<h1>Welcome, ' . $name . '!</h1>';
-	// echo '<h4>You are part of ' . $convoCount . ' active conversations.</h4>';
 }
+
 echo '<h4>You have:</h4>';
 $getApplicationNumbersQuery = "
 	SELECT applicationStatus, COUNT(applicationID) AS numApplications
